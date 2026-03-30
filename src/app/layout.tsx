@@ -3,14 +3,14 @@ import './globals.css';
 import AppShell from '@/components/layout/AppShell';
 
 export const metadata: Metadata = {
-  title: 'Hoopoe Digital HR Platform',
-  description: 'AI-powered HR recruitment platform by Hoopoe Digital',
+  title: 'هوبو ديجيتال - منصة الموارد البشرية',
+  description: 'منصة توظيف ذكية مدعومة بالذكاء الاصطناعي من هوبو ديجيتال',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="h-full">
-      <body className="min-h-full antialiased">
+    <html lang="ar" dir="rtl" className="h-full">
+      <body className="min-h-full antialiased font-bold">
         <AppShell>{children}</AppShell>
       </body>
     </html>

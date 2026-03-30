@@ -17,14 +17,14 @@ export default function PipelineOverview() {
   const total = candidates.length || 1;
 
   return (
-    <Card className="animate-slide-up stagger-5" padding="md">
+    <Card className="card-entrance stagger-5" padding="md">
       <div className="flex items-center justify-between mb-5">
         <div>
-          <h2 className="text-sm font-bold text-hoopoe-black">Recruitment Pipeline</h2>
-          <p className="text-xs text-hoopoe-black/40 mt-0.5">Candidate distribution across stages</p>
+          <h2 className="text-sm font-black text-hoopoe-black">مراحل التوظيف</h2>
+          <p className="text-xs text-hoopoe-black/40 mt-0.5 font-bold">توزيع المرشحين عبر المراحل</p>
         </div>
-        <Link href="/pipeline" className="text-xs font-medium text-hoopoe-orange hover:text-hoopoe-brown transition-colors">
-          View Board →
+        <Link href="/pipeline" className="text-xs font-bold text-hoopoe-orange hover:text-hoopoe-brown transition-colors">
+          عرض اللوحة ←
         </Link>
       </div>
 
@@ -36,7 +36,7 @@ export default function PipelineOverview() {
           return (
             <div key={stage.key} className="flex-1 flex flex-col items-center group">
               <div
-                className="w-full rounded-t-md transition-all duration-500 ease-out group-hover:opacity-80"
+                className="w-full rounded-t-md transition-all duration-500 ease-out group-hover:opacity-80 group-hover:scale-y-110 origin-bottom"
                 style={{
                   height: `${pct}%`,
                   backgroundColor: STAGE_COLORS[stage.key],
@@ -57,12 +57,12 @@ export default function PipelineOverview() {
             <Link
               key={stage.key}
               href="/pipeline"
-              className="flex-1 flex flex-col items-center gap-1.5 py-2 rounded-lg hover:bg-hoopoe-surface transition-colors group"
+              className="flex-1 flex flex-col items-center gap-1.5 py-2 rounded-xl hover:bg-hoopoe-surface transition-all duration-200 group"
             >
-              <Icon size={14} className="text-hoopoe-black/40 group-hover:text-hoopoe-orange transition-colors" />
-              <span className="text-[10px] text-hoopoe-black/50 text-center leading-tight">{stage.label}</span>
+              <Icon size={14} className="text-hoopoe-black/40 group-hover:text-hoopoe-orange group-hover:scale-110 transition-all duration-200" />
+              <span className="text-[10px] text-hoopoe-black/50 text-center leading-tight font-bold">{stage.label}</span>
               <span
-                className="text-xs font-bold"
+                className="text-xs font-black"
                 style={{ color: count > 0 ? STAGE_COLORS[stage.key] : '#E8E3E1' }}
               >
                 {count}

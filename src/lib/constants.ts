@@ -1,15 +1,15 @@
 import { PipelineStage } from './types';
 
 export const PIPELINE_STAGES: { key: PipelineStage; label: string; icon: string; description: string }[] = [
-  { key: 'cv_received', label: 'CV Received', icon: 'FileText', description: 'Resume submitted for review' },
-  { key: 'ai_analysis', label: 'AI Analysis', icon: 'Brain', description: 'Automated CV analysis in progress' },
-  { key: 'screening', label: 'Screening', icon: 'Filter', description: 'Initial qualification screening' },
-  { key: 'interview', label: 'Interview', icon: 'Users', description: 'HR interview scheduled' },
-  { key: 'ceo_interview', label: 'CEO Interview', icon: 'Crown', description: 'Final executive interview' },
-  { key: 'technical_task', label: 'Technical Task', icon: 'Code', description: 'Technical assessment assigned' },
-  { key: 'offer_sent', label: 'Offer Sent', icon: 'Send', description: 'Job offer dispatched' },
-  { key: 'offer_accepted', label: 'Offer Accepted', icon: 'CheckCircle', description: 'Candidate accepted the offer' },
-  { key: 'onboarding', label: 'Onboarding', icon: 'Rocket', description: 'Welcome aboard!' },
+  { key: 'cv_received', label: 'تم استلام السيرة', icon: 'FileText', description: 'تم تقديم السيرة الذاتية للمراجعة' },
+  { key: 'ai_analysis', label: 'تحليل الذكاء الاصطناعي', icon: 'Brain', description: 'جاري التحليل الآلي للسيرة الذاتية' },
+  { key: 'screening', label: 'الفرز الأولي', icon: 'Filter', description: 'فحص المؤهلات الأساسية' },
+  { key: 'interview', label: 'المقابلة', icon: 'Users', description: 'تم جدولة مقابلة الموارد البشرية' },
+  { key: 'ceo_interview', label: 'مقابلة المدير التنفيذي', icon: 'Crown', description: 'المقابلة التنفيذية النهائية' },
+  { key: 'technical_task', label: 'المهمة التقنية', icon: 'Code', description: 'تم تعيين التقييم التقني' },
+  { key: 'offer_sent', label: 'تم إرسال العرض', icon: 'Send', description: 'تم إرسال عرض العمل' },
+  { key: 'offer_accepted', label: 'تم قبول العرض', icon: 'CheckCircle', description: 'قبل المرشح العرض' },
+  { key: 'onboarding', label: 'التهيئة', icon: 'Rocket', description: 'مرحباً بك على متن الفريق!' },
 ];
 
 export const STAGE_COLORS: Record<PipelineStage, string> = {
@@ -25,14 +25,14 @@ export const STAGE_COLORS: Record<PipelineStage, string> = {
 };
 
 export const POSITIONS = [
-  'Senior Frontend Developer',
-  'Backend Engineer',
-  'Full Stack Developer',
-  'DevOps Engineer',
-  'UI/UX Designer',
-  'Product Manager',
-  'Data Scientist',
-  'QA Engineer',
-  'Mobile Developer',
-  'Cloud Architect',
+  'مطور واجهات أمامية أول',
+  'مهندس خلفية',
+  'مطور متكامل',
+  'مهندس DevOps',
+  'مصمم واجهات المستخدم',
+  'مدير منتجات',
+  'عالم بيانات',
+  'مهندس ضمان جودة',
+  'مطور تطبيقات الجوال',
+  'مهندس سحابي',
 ];

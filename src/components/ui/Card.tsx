@@ -11,9 +11,9 @@ export default function Card({ className, highlighted, hover = false, padding = 
   return (
     <div
       className={cn(
-        'bg-white border border-hoopoe-lt-gray rounded-lg shadow-sm',
-        'transition-all duration-200',
-        highlighted && 'border-l-3 border-l-hoopoe-orange',
+        'bg-white border border-hoopoe-lt-gray rounded-xl shadow-sm',
+        'transition-all duration-300',
+        highlighted && 'border-r-3 border-r-hoopoe-orange',
         hover && 'hover:shadow-md hover:-translate-y-0.5',
         {
           'p-4': padding === 'sm',

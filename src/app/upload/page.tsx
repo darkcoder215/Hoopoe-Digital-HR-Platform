@@ -19,33 +19,33 @@ import {
 type AnalysisStep = 'idle' | 'uploading' | 'parsing' | 'analyzing' | 'complete';
 
 const analysisSteps: { key: AnalysisStep; label: string; icon: React.ElementType }[] = [
-  { key: 'uploading', label: 'Uploading file...', icon: CloudUpload },
-  { key: 'parsing', label: 'Parsing CV content...', icon: FileText },
-  { key: 'analyzing', label: 'AI analyzing qualifications...', icon: Brain },
-  { key: 'complete', label: 'Analysis complete!', icon: CheckCircle },
+  { key: 'uploading', label: 'جاري رفع الملف...', icon: CloudUpload },
+  { key: 'parsing', label: 'جاري تحليل محتوى السيرة الذاتية...', icon: FileText },
+  { key: 'analyzing', label: 'الذكاء الاصطناعي يحلل المؤهلات...', icon: Brain },
+  { key: 'complete', label: 'اكتمل التحليل!', icon: CheckCircle },
 ];
 
 function generateMockReport() {
   const score = 60 + Math.floor(Math.random() * 35);
   return {
     overallScore: score,
-    summary: 'The candidate demonstrates strong technical skills with relevant industry experience. Their background shows progressive growth in responsibilities and a solid educational foundation. Communication skills appear well-developed based on CV presentation.',
+    summary: 'يُظهر المرشح مهارات تقنية قوية مع خبرة صناعية ذات صلة. تُظهر خلفيته نمواً تدريجياً في المسؤوليات وأساساً تعليمياً متيناً. مهارات التواصل تبدو متطورة بناءً على عرض السيرة الذاتية.',
     skills: [
-      { name: 'Technical Proficiency', level: 'advanced' as const, score: 65 + Math.floor(Math.random() * 30), yearsOfExperience: 3 },
-      { name: 'Problem Solving', level: 'advanced' as const, score: 60 + Math.floor(Math.random() * 35), yearsOfExperience: 4 },
-      { name: 'Communication', level: 'intermediate' as const, score: 55 + Math.floor(Math.random() * 30), yearsOfExperience: 3 },
-      { name: 'Leadership', level: 'intermediate' as const, score: 50 + Math.floor(Math.random() * 30), yearsOfExperience: 2 },
-      { name: 'Domain Knowledge', level: 'advanced' as const, score: 60 + Math.floor(Math.random() * 30), yearsOfExperience: 3 },
+      { name: 'الكفاءة التقنية', level: 'advanced' as const, score: 65 + Math.floor(Math.random() * 30), yearsOfExperience: 3 },
+      { name: 'حل المشكلات', level: 'advanced' as const, score: 60 + Math.floor(Math.random() * 35), yearsOfExperience: 4 },
+      { name: 'التواصل', level: 'intermediate' as const, score: 55 + Math.floor(Math.random() * 30), yearsOfExperience: 3 },
+      { name: 'القيادة', level: 'intermediate' as const, score: 50 + Math.floor(Math.random() * 30), yearsOfExperience: 2 },
+      { name: 'المعرفة التخصصية', level: 'advanced' as const, score: 60 + Math.floor(Math.random() * 30), yearsOfExperience: 3 },
     ],
     experience: [
-      { company: 'Previous Company', role: 'Senior Role', startDate: '2021', endDate: 'Present', description: 'Led key initiatives and delivered impactful results.' },
-      { company: 'Earlier Company', role: 'Mid-Level Role', startDate: '2018', endDate: '2021', description: 'Contributed to team projects and grew technical skills.' },
+      { company: 'الشركة السابقة', role: 'وظيفة أول', startDate: '٢٠٢١', endDate: 'الحالي', description: 'قاد مبادرات رئيسية وحقق نتائج مؤثرة.' },
+      { company: 'شركة سابقة', role: 'وظيفة متوسطة', startDate: '٢٠١٨', endDate: '٢٠٢١', description: 'ساهم في مشاريع الفريق وطور المهارات التقنية.' },
     ],
     education: [
-      { institution: 'University', degree: 'BSc', field: 'Computer Science', year: '2018' },
+      { institution: 'الجامعة', degree: 'بكالوريوس', field: 'علوم الحاسب', year: '٢٠١٨' },
     ],
-    strengths: ['Strong technical foundation', 'Clear career progression', 'Well-structured CV presentation'],
-    concerns: ['Could benefit from more leadership experience', 'Limited cross-functional exposure'],
+    strengths: ['أساس تقني قوي', 'تطور مهني واضح', 'عرض سيرة ذاتية منظم'],
+    concerns: ['يحتاج المزيد من الخبرة القيادية', 'خبرة محدودة في العمل متعدد التخصصات'],
     recommendedStage: 'screening' as const,
     analyzedAt: new Date().toISOString(),
   };
@@ -65,11 +65,11 @@ export default function UploadPage() {
     setError('');
     const validTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
     if (!validTypes.includes(f.type)) {
-      setError('Please upload a PDF or Word document');
+      setError('يرجى رفع ملف PDF أو Word');
       return;
     }
     if (f.size > 10 * 1024 * 1024) {
-      setError('File size must be under 10MB');
+      setError('حجم الملف يجب أن يكون أقل من ١٠ ميجابايت');
       return;
     }
     setFile(f);
@@ -104,7 +104,7 @@ export default function UploadPage() {
       aiReport: generateMockReport(),
       notes: [],
       transitions: [
-        { from: 'cv_received', to: 'ai_analysis', date: new Date().toISOString(), by: 'System' },
+        { from: 'cv_received', to: 'ai_analysis', date: new Date().toISOString(), by: 'النظام' },
       ],
     };
     addCandidate(candidate);
@@ -123,18 +123,18 @@ export default function UploadPage() {
 
   return (
     <>
-      <Topbar title="Upload CV" subtitle="AI-powered candidate analysis" />
+      <Topbar title="رفع السيرة الذاتية" subtitle="تحليل ذكي مدعوم بالذكاء الاصطناعي" />
       <div className="p-8 max-w-3xl mx-auto space-y-6">
         {/* Drop Zone */}
         {step === 'idle' && (
-          <Card className="animate-scale-in">
+          <Card className="card-entrance">
             <div
               onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
               onDragLeave={() => setDragOver(false)}
               onDrop={handleDrop}
               onClick={() => fileInputRef.current?.click()}
               className={cn(
-                'border-2 border-dashed rounded-xl p-12 text-center cursor-pointer transition-all duration-200',
+                'border-2 border-dashed rounded-2xl p-12 text-center cursor-pointer transition-all duration-300',
                 dragOver
                   ? 'border-hoopoe-orange bg-hoopoe-lt-orange/20 scale-[1.01]'
                   : 'border-hoopoe-lt-gray bg-hoopoe-surface/30 hover:border-hoopoe-mid-orange hover:bg-hoopoe-lt-orange/10'
@@ -148,26 +148,26 @@ export default function UploadPage() {
                 onChange={(e) => e.target.files?.[0] && handleFile(e.target.files[0])}
               />
               <div className={cn(
-                'w-16 h-16 rounded-2xl mx-auto mb-4 flex items-center justify-center transition-all duration-200',
-                dragOver ? 'bg-hoopoe-orange text-white scale-110' : 'bg-hoopoe-orange/10 text-hoopoe-orange'
+                'w-16 h-16 rounded-2xl mx-auto mb-4 flex items-center justify-center transition-all duration-300',
+                dragOver ? 'bg-hoopoe-orange text-white scale-110' : 'bg-hoopoe-orange/10 text-hoopoe-orange breathe'
               )}>
                 <Upload size={28} />
               </div>
-              <h3 className="text-base font-semibold text-hoopoe-black mb-1">
-                {dragOver ? 'Drop your CV here' : 'Drag & drop CV file'}
+              <h3 className="text-base font-black text-hoopoe-black mb-1">
+                {dragOver ? 'أسقط السيرة الذاتية هنا' : 'اسحب وأسقط ملف السيرة الذاتية'}
               </h3>
-              <p className="text-xs text-hoopoe-black/40 mb-4">
-                or click to browse — PDF, DOC, DOCX up to 10MB
+              <p className="text-xs text-hoopoe-black/40 mb-4 font-bold">
+                أو اضغط للتصفح — PDF, DOC, DOCX حتى ١٠ ميجابايت
               </p>
-              <div className="flex items-center justify-center gap-6 text-[10px] text-hoopoe-black/30">
-                <span className="flex items-center gap-1"><Sparkles size={10} /> AI-Powered Analysis</span>
-                <span className="flex items-center gap-1"><Brain size={10} /> Instant Results</span>
-                <span className="flex items-center gap-1"><CheckCircle size={10} /> No Human Intervention</span>
+              <div className="flex items-center justify-center gap-6 text-[10px] text-hoopoe-black/30 font-bold">
+                <span className="flex items-center gap-1"><Sparkles size={10} /> تحليل بالذكاء الاصطناعي</span>
+                <span className="flex items-center gap-1"><Brain size={10} /> نتائج فورية</span>
+                <span className="flex items-center gap-1"><CheckCircle size={10} /> بدون تدخل بشري</span>
               </div>
             </div>
 
             {error && (
-              <div className="mt-4 flex items-center gap-2 p-3 rounded-lg bg-hoopoe-brown/10 text-hoopoe-brown text-xs animate-scale-in">
+              <div className="mt-4 flex items-center gap-2 p-3 rounded-xl bg-hoopoe-brown/10 text-hoopoe-brown text-xs font-bold animate-scale-in">
                 <AlertCircle size={14} />
                 {error}
               </div>
@@ -177,26 +177,26 @@ export default function UploadPage() {
 
         {/* File selected - pre-analysis */}
         {file && step === 'idle' && (
-          <Card className="animate-slide-up">
+          <Card className="card-entrance">
             <div className="flex items-center gap-4 mb-6">
               <div className="w-12 h-12 rounded-xl bg-hoopoe-orange/10 flex items-center justify-center">
                 <File size={22} className="text-hoopoe-orange" />
               </div>
               <div className="flex-1">
-                <p className="text-sm font-semibold text-hoopoe-black">{file.name}</p>
-                <p className="text-xs text-hoopoe-black/40">{(file.size / 1024).toFixed(1)} KB</p>
+                <p className="text-sm font-bold text-hoopoe-black">{file.name}</p>
+                <p className="text-xs text-hoopoe-black/40 font-bold">{(file.size / 1024).toFixed(1)} كيلوبايت</p>
               </div>
-              <button onClick={() => setFile(null)} className="p-1.5 rounded-lg hover:bg-hoopoe-surface transition-colors cursor-pointer">
+              <button onClick={() => setFile(null)} className="p-1.5 rounded-xl hover:bg-hoopoe-surface transition-colors cursor-pointer">
                 <X size={16} className="text-hoopoe-black/40" />
               </button>
             </div>
 
             <div className="mb-6">
-              <label className="block text-xs font-medium text-hoopoe-black/70 mb-2">Position Applying For</label>
+              <label className="block text-xs font-bold text-hoopoe-black/70 mb-2">الوظيفة المتقدم لها</label>
               <select
                 value={position}
                 onChange={(e) => setPosition(e.target.value)}
-                className="w-full px-4 py-2.5 text-sm border border-hoopoe-lt-gray rounded-lg bg-white focus:border-hoopoe-orange focus:ring-2 focus:ring-hoopoe-focus outline-none transition-all"
+                className="w-full px-4 py-2.5 text-sm font-bold border border-hoopoe-lt-gray rounded-xl bg-white focus:border-hoopoe-orange focus:ring-2 focus:ring-hoopoe-focus outline-none transition-all"
               >
                 {POSITIONS.map((p) => (
                   <option key={p} value={p}>{p}</option>
@@ -206,7 +206,7 @@ export default function UploadPage() {
 
             <Button onClick={startAnalysis} className="w-full" size="lg">
               <Brain size={18} />
-              Start AI Analysis
+              بدء التحليل الذكي
             </Button>
           </Card>
         )}
@@ -218,8 +218,8 @@ export default function UploadPage() {
               <div className="w-16 h-16 rounded-2xl bg-hoopoe-orange/10 mx-auto mb-4 flex items-center justify-center">
                 <Loader2 size={28} className="text-hoopoe-orange animate-spin" />
               </div>
-              <h3 className="text-base font-semibold text-hoopoe-black">Analyzing CV</h3>
-              <p className="text-xs text-hoopoe-black/40 mt-1">{file?.name}</p>
+              <h3 className="text-base font-black text-hoopoe-black">جاري تحليل السيرة الذاتية</h3>
+              <p className="text-xs text-hoopoe-black/40 mt-1 font-bold">{file?.name}</p>
             </div>
 
             <div className="space-y-3">
@@ -231,25 +231,25 @@ export default function UploadPage() {
                   <div
                     key={s.key}
                     className={cn(
-                      'flex items-center gap-3 p-3 rounded-lg transition-all duration-300',
+                      'flex items-center gap-3 p-3 rounded-xl transition-all duration-300',
                       isActive && 'bg-hoopoe-lt-orange/20',
                       isDone && 'opacity-60'
                     )}
                   >
                     <div className={cn(
-                      'w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-300',
+                      'w-8 h-8 rounded-xl flex items-center justify-center transition-all duration-300',
                       isActive ? 'bg-hoopoe-orange text-white' : isDone ? 'bg-hoopoe-success/20 text-hoopoe-success' : 'bg-hoopoe-lt-gray/50 text-hoopoe-black/20'
                     )}>
                       {isDone ? <CheckCircle size={16} /> : isActive ? <Loader2 size={16} className="animate-spin" /> : <Icon size={16} />}
                     </div>
                     <span className={cn(
-                      'text-sm',
-                      isActive ? 'text-hoopoe-black font-medium' : isDone ? 'text-hoopoe-black/50' : 'text-hoopoe-black/25'
+                      'text-sm font-bold',
+                      isActive ? 'text-hoopoe-black font-black' : isDone ? 'text-hoopoe-black/50' : 'text-hoopoe-black/25'
                     )}>
                       {s.label}
                     </span>
                     {isActive && (
-                      <div className="ml-auto flex gap-1">
+                      <div className="mr-auto flex gap-1">
                         <div className="w-1.5 h-1.5 rounded-full bg-hoopoe-orange animate-pulse-orange" />
                         <div className="w-1.5 h-1.5 rounded-full bg-hoopoe-orange animate-pulse-orange stagger-2" />
                         <div className="w-1.5 h-1.5 rounded-full bg-hoopoe-orange animate-pulse-orange stagger-4" />
@@ -263,7 +263,7 @@ export default function UploadPage() {
             {/* Progress bar */}
             <div className="mt-6 h-1.5 bg-hoopoe-lt-gray rounded-full overflow-hidden">
               <div
-                className="h-full bg-gradient-to-r from-hoopoe-orange to-hoopoe-mid-orange rounded-full transition-all duration-700 ease-out"
+                className="h-full bg-gradient-to-l from-hoopoe-orange to-hoopoe-mid-orange rounded-full transition-all duration-700 ease-out"
                 style={{ width: `${((currentStepIndex + 1) / analysisSteps.length) * 100}%` }}
               />
             </div>
@@ -277,19 +277,19 @@ export default function UploadPage() {
               <div className="w-16 h-16 rounded-2xl bg-hoopoe-success/10 mx-auto mb-4 flex items-center justify-center animate-float">
                 <CheckCircle size={28} className="text-hoopoe-success" />
               </div>
-              <h3 className="text-lg font-bold text-hoopoe-black">Analysis Complete</h3>
-              <p className="text-xs text-hoopoe-black/40 mt-1">{file?.name} has been processed</p>
+              <h3 className="text-lg font-black text-hoopoe-black">اكتمل التحليل</h3>
+              <p className="text-xs text-hoopoe-black/40 mt-1 font-bold">تم معالجة {file?.name}</p>
             </div>
 
-            <div className="flex items-center justify-center gap-8 mb-6 p-4 bg-hoopoe-surface/50 rounded-xl">
+            <div className="flex items-center justify-center gap-8 mb-6 p-4 bg-hoopoe-surface/50 rounded-2xl">
               <ScoreGauge score={newCandidate.aiReport.overallScore} size="lg" />
-              <div className="text-left">
-                <p className="text-sm font-semibold text-hoopoe-black mb-2">{newCandidate.name}</p>
-                <p className="text-xs text-hoopoe-black/50 mb-2">{newCandidate.position}</p>
+              <div className="text-right">
+                <p className="text-sm font-bold text-hoopoe-black mb-2">{newCandidate.name}</p>
+                <p className="text-xs text-hoopoe-black/50 mb-2 font-bold">{newCandidate.position}</p>
                 <Badge variant="stage" stage={newCandidate.stage} />
                 <div className="mt-3 space-y-1">
                   {newCandidate.aiReport.strengths.slice(0, 2).map((s, i) => (
-                    <p key={i} className="text-[11px] text-hoopoe-success flex items-center gap-1">
+                    <p key={i} className="text-[11px] text-hoopoe-success flex items-center gap-1 font-bold">
                       <CheckCircle size={10} /> {s}
                     </p>
                   ))}
@@ -299,27 +299,27 @@ export default function UploadPage() {
 
             <div className="flex gap-3">
               <Link href={`/candidates/${newCandidate.id}`} className="flex-1">
-                <Button className="w-full">View Full Report</Button>
+                <Button className="w-full">عرض التقرير الكامل</Button>
               </Link>
-              <Button variant="secondary" onClick={reset}>Upload Another</Button>
+              <Button variant="secondary" onClick={reset}>رفع سيرة أخرى</Button>
             </div>
           </Card>
         )}
 
         {/* Features */}
         {step === 'idle' && !file && (
-          <div className="grid grid-cols-3 gap-4 animate-slide-up stagger-3">
+          <div className="grid grid-cols-3 gap-4 card-entrance stagger-3">
             {[
-              { icon: Brain, title: 'AI-Powered', desc: 'Deep analysis of skills, experience, and qualifications' },
-              { icon: Sparkles, title: 'Instant Results', desc: 'Get comprehensive reports in seconds, not days' },
-              { icon: CheckCircle, title: 'Zero Bias', desc: 'Objective scoring without human intervention' },
+              { icon: Brain, title: 'مدعوم بالذكاء الاصطناعي', desc: 'تحليل عميق للمهارات والخبرات والمؤهلات' },
+              { icon: Sparkles, title: 'نتائج فورية', desc: 'احصل على تقارير شاملة في ثوانٍ وليس أيام' },
+              { icon: CheckCircle, title: 'بدون تحيز', desc: 'تقييم موضوعي بدون تدخل بشري' },
             ].map((f) => (
-              <Card key={f.title} padding="sm" className="text-center">
+              <Card key={f.title} padding="sm" className="text-center hover-glow">
                 <div className="w-10 h-10 rounded-xl bg-hoopoe-orange/10 mx-auto mb-3 flex items-center justify-center">
                   <f.icon size={18} className="text-hoopoe-orange" />
                 </div>
-                <h4 className="text-xs font-semibold text-hoopoe-black mb-1">{f.title}</h4>
-                <p className="text-[10px] text-hoopoe-black/40 leading-relaxed">{f.desc}</p>
+                <h4 className="text-xs font-black text-hoopoe-black mb-1">{f.title}</h4>
+                <p className="text-[10px] text-hoopoe-black/40 leading-relaxed font-bold">{f.desc}</p>
               </Card>
             ))}
           </div>

@@ -189,9 +189,65 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  font-family: 'Thmanyah Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+/* RTL Support */
+[dir="rtl"] .brand-bar {
+  background: linear-gradient(270deg, #CE8345, #E7A15E);
+}
+
+/* Hover glow effect */
+.hover-glow {
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+.hover-glow:hover {
+  box-shadow: 0 8px 30px rgba(206, 131, 69, 0.15);
+}
+
+/* Smooth entrance for cards */
+.card-entrance {
+  animation: card-enter 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes card-enter {
+  from { opacity: 0; transform: translateY(16px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Subtle breathing animation */
+.breathe {
+  animation: breathe 4s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+}
+
+/* Gradient border effect */
+.gradient-border {
+  position: relative;
+}
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, #CE8345, #E7A15E, #F9CF9D);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.gradient-border:hover::before {
+  opacity: 1;
 }
 
 /* ============================================

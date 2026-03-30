@@ -33,10 +33,10 @@ export default function StatsCards() {
   const offersSent = candidates.filter((c) => ['offer_sent', 'offer_accepted', 'onboarding'].includes(c.stage)).length;
 
   const stats = [
-    { label: 'Total Candidates', value: totalCandidates, icon: Users, trend: '+3 this week', up: true, color: 'bg-hoopoe-orange/10 text-hoopoe-orange' },
-    { label: 'In Pipeline', value: inPipeline, icon: Brain, trend: `${inPipeline} active`, up: true, color: 'bg-hoopoe-navy/10 text-hoopoe-navy' },
-    { label: 'AI Reports', value: reportsGenerated, icon: Brain, trend: '92% auto-analyzed', up: true, color: 'bg-hoopoe-lt-orange/30 text-hoopoe-brown' },
-    { label: 'Offers Sent', value: offersSent, icon: Send, trend: '67% acceptance', up: true, color: 'bg-hoopoe-success/10 text-hoopoe-success' },
+    { label: 'إجمالي المرشحين', value: totalCandidates, icon: Users, trend: '+٣ هذا الأسبوع', up: true, color: 'bg-hoopoe-orange/10 text-hoopoe-orange' },
+    { label: 'في مراحل التوظيف', value: inPipeline, icon: Brain, trend: `${inPipeline} نشط`, up: true, color: 'bg-hoopoe-navy/10 text-hoopoe-navy' },
+    { label: 'تقارير الذكاء الاصطناعي', value: reportsGenerated, icon: Brain, trend: '٩٢٪ تحليل تلقائي', up: true, color: 'bg-hoopoe-lt-orange/30 text-hoopoe-brown' },
+    { label: 'عروض مرسلة', value: offersSent, icon: Send, trend: '٦٧٪ نسبة القبول', up: true, color: 'bg-hoopoe-success/10 text-hoopoe-success' },
   ];
 
   return (
@@ -44,21 +44,21 @@ export default function StatsCards() {
       {stats.map((stat, i) => {
         const Icon = stat.icon;
         return (
-          <Card key={stat.label} hover className={`animate-slide-up stagger-${i + 1}`} padding="md">
+          <Card key={stat.label} hover className={`card-entrance hover-glow stagger-${i + 1}`} padding="md">
             <div className="flex items-start justify-between">
               <div>
-                <p className="text-xs font-medium text-hoopoe-black/50 uppercase tracking-wider">{stat.label}</p>
-                <p className="text-3xl font-bold text-hoopoe-black mt-1">
+                <p className="text-xs font-bold text-hoopoe-black/50 tracking-wider">{stat.label}</p>
+                <p className="text-3xl font-black text-hoopoe-black mt-1">
                   <AnimatedNumber value={stat.value} />
                 </p>
               </div>
-              <div className={`p-2.5 rounded-xl ${stat.color}`}>
+              <div className={`p-2.5 rounded-xl ${stat.color} transition-transform duration-300 hover:scale-110`}>
                 <Icon size={20} />
               </div>
             </div>
             <div className="flex items-center gap-1.5 mt-3 text-xs">
               {stat.up ? <TrendingUp size={12} className="text-hoopoe-success" /> : <TrendingDown size={12} className="text-hoopoe-brown" />}
-              <span className="text-hoopoe-black/50">{stat.trend}</span>
+              <span className="text-hoopoe-black/50 font-bold">{stat.trend}</span>
             </div>
           </Card>
         );

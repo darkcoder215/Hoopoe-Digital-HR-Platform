@@ -15,28 +15,28 @@ const iconMap: Record<string, { icon: React.ElementType; color: string; bg: stri
 
 export default function ActivityFeed() {
   return (
-    <Card className="animate-slide-up stagger-7">
-      <h2 className="text-sm font-bold text-hoopoe-black mb-1">Recent Activity</h2>
-      <p className="text-xs text-hoopoe-black/40 mb-5">Latest pipeline events</p>
+    <Card className="card-entrance stagger-7">
+      <h2 className="text-sm font-black text-hoopoe-black mb-1">آخر النشاطات</h2>
+      <p className="text-xs text-hoopoe-black/40 mb-5 font-bold">أحدث أحداث مراحل التوظيف</p>
 
       <div className="space-y-0 relative">
         {/* Vertical line */}
-        <div className="absolute left-[15px] top-2 bottom-2 w-px bg-hoopoe-lt-gray" />
+        <div className="absolute right-[15px] top-2 bottom-2 w-px bg-hoopoe-lt-gray" />
 
         {mockActivities.map((activity, i) => {
           const { icon: Icon, color, bg } = iconMap[activity.type] || iconMap.upload;
           return (
             <div key={activity.id} className={`flex gap-3 py-3 relative animate-fade-in stagger-${i + 1}`}>
-              <div className={`w-[30px] h-[30px] rounded-lg ${bg} flex items-center justify-center flex-shrink-0 z-10`}>
+              <div className={`w-[30px] h-[30px] rounded-xl ${bg} flex items-center justify-center flex-shrink-0 z-10 transition-transform duration-200 hover:scale-110`}>
                 <Icon size={14} className={color} />
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-xs text-hoopoe-black leading-relaxed">
-                  <span className="font-semibold">{activity.candidateName}</span>
+                <p className="text-xs text-hoopoe-black leading-relaxed font-bold">
+                  <span className="font-black">{activity.candidateName}</span>
                   {' — '}
                   {activity.description}
                 </p>
-                <p className="text-[10px] text-hoopoe-black/30 mt-0.5">{formatRelativeTime(activity.timestamp)}</p>
+                <p className="text-[10px] text-hoopoe-black/30 mt-0.5 font-bold">{formatRelativeTime(activity.timestamp)}</p>
               </div>
             </div>
           );

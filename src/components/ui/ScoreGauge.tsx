@@ -50,7 +50,7 @@ export default function ScoreGauge({ score, size = 'md', showLabel = true, class
       </svg>
       <div className="absolute inset-0 flex flex-col items-center justify-center">
         <span className={cn('font-bold', fontSizes[size], getScoreColor(score))}>{Math.round(animatedScore)}</span>
-        {showLabel && size !== 'sm' && <span className="text-[9px] text-hoopoe-black/50 uppercase tracking-wider">Score</span>}
+        {showLabel && size !== 'sm' && <span className="text-[9px] text-hoopoe-black/50 font-bold tracking-wider">التقييم</span>}
       </div>
     </div>
   );

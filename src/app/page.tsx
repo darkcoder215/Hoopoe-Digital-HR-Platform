@@ -9,7 +9,7 @@ import ActivityFeed from '@/components/dashboard/ActivityFeed';
 export default function DashboardPage() {
   return (
     <>
-      <Topbar title="Dashboard" subtitle="Recruitment overview & analytics" />
+      <Topbar title="لوحة التحكم" subtitle="نظرة عامة على التوظيف والتحليلات" />
       <div className="p-8 space-y-6 max-w-[1440px]">
         <StatsCards />
         <PipelineOverview />

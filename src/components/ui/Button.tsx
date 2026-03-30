@@ -14,7 +14,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       <button
         ref={ref}
         className={cn(
-          'inline-flex items-center justify-center gap-2 font-medium rounded transition-all duration-150 ease-in-out cursor-pointer',
+          'inline-flex items-center justify-center gap-2 font-bold rounded-xl transition-all duration-200 ease-in-out cursor-pointer',
           'focus:outline-none focus:ring-3 focus:ring-hoopoe-focus',
           'disabled:opacity-50 disabled:cursor-not-allowed',
           {
