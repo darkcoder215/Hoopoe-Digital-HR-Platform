@@ -6,6 +6,7 @@ import Card from '@/components/ui/Card';
 import Link from 'next/link';
 import {
   FileText, Brain, Filter, Users, Crown, Code, Send, CheckCircle, Rocket,
+  ArrowLeft, GitBranch,
 } from 'lucide-react';
 
 const iconMap: Record<string, React.ElementType> = {
@@ -16,31 +17,46 @@ export default function PipelineOverview() {
   const candidates = useCandidatesStore((s) => s.candidates);
   const total = candidates.length || 1;
 
+  const stageCounts = PIPELINE_STAGES.map((stage) => ({
+    ...stage,
+    count: candidates.filter((c) => c.stage === stage.key).length,
+  }));
+
   return (
-    <Card className="card-entrance stagger-5" padding="md">
-      <div className="flex items-center justify-between mb-5">
-        <div>
-          <h2 className="text-sm font-black text-hoopoe-black">مراحل التوظيف</h2>
-          <p className="text-xs text-hoopoe-black/40 mt-0.5 font-bold">توزيع المرشحين عبر المراحل</p>
+    <Card className="card-entrance stagger-5 h-full" padding="md">
+      {/* Header */}
+      <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center gap-3">
+          <div className="section-icon bg-hoopoe-orange/8">
+            <GitBranch size={16} className="text-hoopoe-orange" />
+          </div>
+          <div>
+            <h2 className="text-sm font-black text-hoopoe-black">مسار التوظيف</h2>
+            <p className="text-[11px] text-hoopoe-black/35 font-semibold">توزيع المرشحين عبر المراحل</p>
+          </div>
         </div>
-        <Link href="/pipeline" className="text-xs font-bold text-hoopoe-orange hover:text-hoopoe-brown transition-colors">
-          عرض اللوحة ←
+        <Link href="/pipeline" className="flex items-center gap-1 text-[11px] font-bold text-hoopoe-orange hover:text-hoopoe-brown transition-colors">
+          عرض اللوحة
+          <ArrowLeft size={12} />
         </Link>
       </div>
 
-      {/* Pipeline stages */}
-      <div className="flex items-end gap-1 h-16 mb-3">
-        {PIPELINE_STAGES.map((stage) => {
-          const count = candidates.filter((c) => c.stage === stage.key).length;
-          const pct = Math.max(8, (count / total) * 100);
+      {/* Funnel Visualization */}
+      <div className="flex items-end gap-1.5 h-24 mb-2 px-1">
+        {stageCounts.map((stage, i) => {
+          const pct = Math.max(10, (stage.count / total) * 100);
           return (
-            <div key={stage.key} className="flex-1 flex flex-col items-center group">
+            <div key={stage.key} className="flex-1 flex flex-col items-center group cursor-pointer">
+              <div className="text-[9px] font-black text-hoopoe-black/40 mb-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                {stage.count}
+              </div>
               <div
-                className="w-full rounded-t-md transition-all duration-500 ease-out group-hover:opacity-80 group-hover:scale-y-110 origin-bottom"
+                className="w-full rounded-lg transition-all duration-700 ease-out group-hover:opacity-90"
                 style={{
                   height: `${pct}%`,
                   backgroundColor: STAGE_COLORS[stage.key],
-                  minHeight: '6px',
+                  minHeight: '8px',
+                  boxShadow: stage.count > 0 ? `0 2px 8px ${STAGE_COLORS[stage.key]}30` : 'none',
                 }}
               />
             </div>
@@ -48,28 +64,41 @@ export default function PipelineOverview() {
         })}
       </div>
 
-      {/* Labels */}
-      <div className="flex gap-1">
-        {PIPELINE_STAGES.map((stage) => {
-          const count = candidates.filter((c) => c.stage === stage.key).length;
+      {/* Stage Labels & Counts */}
+      <div className="grid grid-cols-9 gap-1 pt-3 border-t border-hoopoe-lt-gray/30">
+        {stageCounts.map((stage) => {
           const Icon = iconMap[stage.icon] || FileText;
           return (
             <Link
               key={stage.key}
               href="/pipeline"
-              className="flex-1 flex flex-col items-center gap-1.5 py-2 rounded-xl hover:bg-hoopoe-surface transition-all duration-200 group"
+              className="flex flex-col items-center gap-1 py-2 rounded-xl hover:bg-hoopoe-surface/60 transition-all duration-200 group"
             >
-              <Icon size={14} className="text-hoopoe-black/40 group-hover:text-hoopoe-orange group-hover:scale-110 transition-all duration-200" />
-              <span className="text-[10px] text-hoopoe-black/50 text-center leading-tight font-bold">{stage.label}</span>
+              <div className="w-6 h-6 rounded-lg flex items-center justify-center transition-all duration-200"
+                   style={{ backgroundColor: `${STAGE_COLORS[stage.key]}15` }}>
+                <Icon size={11} style={{ color: STAGE_COLORS[stage.key] }} className="group-hover:scale-110 transition-transform" />
+              </div>
+              <span className="text-[8px] text-hoopoe-black/40 text-center leading-tight font-bold line-clamp-2">{stage.label}</span>
               <span
-                className="text-xs font-black"
-                style={{ color: count > 0 ? STAGE_COLORS[stage.key] : '#E8E3E1' }}
+                className="text-[11px] font-black"
+                style={{ color: stage.count > 0 ? STAGE_COLORS[stage.key] : '#D4D0CE' }}
               >
-                {count}
+                {stage.count}
               </span>
             </Link>
           );
         })}
+      </div>
+
+      {/* Conversion Rate */}
+      <div className="mt-4 p-3 rounded-xl bg-hoopoe-surface/50 border border-hoopoe-lt-gray/30">
+        <div className="flex items-center justify-between text-[10px]">
+          <span className="font-bold text-hoopoe-black/40">معدل التحويل الكلي (استلام ← تهيئة)</span>
+          <span className="font-black text-hoopoe-success">٢٥٪</span>
+        </div>
+        <div className="mt-2 h-1 bg-hoopoe-lt-gray/40 rounded-full overflow-hidden">
+          <div className="h-full w-[25%] bg-gradient-to-l from-hoopoe-success to-hoopoe-success/60 rounded-full" />
+        </div>
       </div>
     </Card>
   );

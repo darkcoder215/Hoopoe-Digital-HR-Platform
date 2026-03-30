@@ -117,43 +117,44 @@
   --color-hoopoe-success: #2D7D46;
   --color-hoopoe-focus: rgba(231, 161, 94, 0.4);
   --color-hoopoe-surface: #F7F5F4;
+  --color-hoopoe-danger: #DC3545;
 
   /* Font Families */
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --font-sans: 'Thmanyah Sans', 'Inter', -apple-system, system-ui, sans-serif;
   --font-display: 'Thmanyah Serif Display', 'Georgia', serif;
   --font-body: 'Thmanyah Sans', 'Inter', system-ui, sans-serif;
 
   /* Shadows */
-  --shadow-sm: 0 1px 2px rgba(32, 36, 44, 0.06);
-  --shadow-md: 0 4px 12px rgba(32, 36, 44, 0.08);
-  --shadow-lg: 0 8px 24px rgba(32, 36, 44, 0.12);
-  --shadow-xl: 0 16px 48px rgba(32, 36, 44, 0.16);
+  --shadow-sm: 0 1px 2px rgba(32, 36, 44, 0.05);
+  --shadow-md: 0 4px 16px rgba(32, 36, 44, 0.07);
+  --shadow-lg: 0 8px 32px rgba(32, 36, 44, 0.10);
+  --shadow-xl: 0 20px 60px rgba(32, 36, 44, 0.14);
 
   /* Animations */
-  --animate-fade-in: fade-in 0.3s ease-out;
-  --animate-slide-up: slide-up 0.3s ease-out;
-  --animate-scale-in: scale-in 0.2s ease-out;
-  --animate-pulse-orange: pulse-orange 2s ease-in-out infinite;
+  --animate-fade-in: fade-in 0.4s ease-out both;
+  --animate-slide-up: slide-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-scale-in: scale-in 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-pulse-orange: pulse-orange 2.5s ease-in-out infinite;
   --animate-progress: progress-fill 1.5s ease-out forwards;
   --animate-count-up: count-up 0.6s ease-out;
-  --animate-shimmer: shimmer 1.5s ease-in-out infinite;
-  --animate-float: float 3s ease-in-out infinite;
+  --animate-shimmer: shimmer 2s ease-in-out infinite;
+  --animate-float: float 4s ease-in-out infinite;
 
   @keyframes fade-in {
     from { opacity: 0; }
     to { opacity: 1; }
   }
   @keyframes slide-up {
-    from { opacity: 0; transform: translateY(8px); }
+    from { opacity: 0; transform: translateY(12px); }
     to { opacity: 1; transform: translateY(0); }
   }
   @keyframes scale-in {
-    from { opacity: 0; transform: scale(0.95); }
+    from { opacity: 0; transform: scale(0.96); }
     to { opacity: 1; transform: scale(1); }
   }
   @keyframes pulse-orange {
     0%, 100% { opacity: 1; }
-    50% { opacity: 0.6; }
+    50% { opacity: 0.5; }
   }
   @keyframes progress-fill {
     from { width: 0%; }
@@ -168,7 +169,7 @@
   }
   @keyframes float {
     0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-4px); }
+    50% { transform: translateY(-6px); }
   }
 }
 
@@ -177,87 +178,113 @@
    ============================================ */
 
 :root {
-  --background: #FFFFFF;
+  --background: #FAFAF9;
   --foreground: #20242C;
 }
 
 * {
   scrollbar-width: thin;
-  scrollbar-color: #E8E3E1 transparent;
+  scrollbar-color: #D4D0CE transparent;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: 'Thmanyah Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  font-family: 'Thmanyah Sans', 'Inter', -apple-system, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-weight: 700;
+  font-weight: 500;
   letter-spacing: 0.01em;
+  line-height: 1.6;
 }
 
-/* RTL Support */
-[dir="rtl"] .brand-bar {
-  background: linear-gradient(270deg, #CE8345, #E7A15E);
+/* ============================================
+   SECTION STYLES
+   ============================================ */
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #F0EDEB;
 }
 
-/* Hover glow effect */
-.hover-glow {
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
-}
-.hover-glow:hover {
-  box-shadow: 0 8px 30px rgba(206, 131, 69, 0.15);
+.section-header::after {
+  content: '';
+  flex: 1;
+  height: 2px;
+  background: linear-gradient(to left, transparent, #E8E3E1);
 }
 
-/* Smooth entrance for cards */
+.section-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* ============================================
+   CARD ANIMATIONS
+   ============================================ */
+
 .card-entrance {
-  animation: card-enter 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: card-enter 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 @keyframes card-enter {
-  from { opacity: 0; transform: translateY(16px) scale(0.98); }
+  from { opacity: 0; transform: translateY(20px) scale(0.97); }
   to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-/* Subtle breathing animation */
+.hover-lift {
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease;
+}
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(32, 36, 44, 0.10);
+}
+
+.hover-glow {
+  transition: box-shadow 0.4s ease, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.hover-glow:hover {
+  box-shadow: 0 8px 32px rgba(206, 131, 69, 0.18);
+  transform: translateY(-2px);
+}
+
+/* Breathing animation */
 .breathe {
   animation: breathe 4s ease-in-out infinite;
 }
 
 @keyframes breathe {
   0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.02); }
+  50% { transform: scale(1.015); }
 }
 
-/* Gradient border effect */
-.gradient-border {
-  position: relative;
+/* Slide in from right for RTL */
+.slide-in-rtl {
+  animation: slide-in-rtl 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
-.gradient-border::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 1px;
-  background: linear-gradient(135deg, #CE8345, #E7A15E, #F9CF9D);
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-.gradient-border:hover::before {
-  opacity: 1;
+
+@keyframes slide-in-rtl {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
 }
 
 /* ============================================
-   UTILITY CLASSES
+   DECORATIVE ELEMENTS
    ============================================ */
 
 .brand-bar {
-  height: 6px;
-  background: linear-gradient(90deg, #CE8345, #E7A15E);
-  border-radius: 3px;
+  height: 4px;
+  background: linear-gradient(270deg, #CE8345, #E7A15E, #F9CF9D);
+  border-radius: 2px;
 }
 
 .brand-bar-thick {
@@ -266,14 +293,14 @@ body {
 }
 
 .glass-card {
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(232, 227, 225, 0.6);
+  background: rgba(255, 255, 255, 0.90);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(232, 227, 225, 0.5);
 }
 
 .dot-pattern {
-  background-image: radial-gradient(circle, #F9CF9D 1px, transparent 1px);
-  background-size: 24px 24px;
+  background-image: radial-gradient(circle, #F9CF9D 0.8px, transparent 0.8px);
+  background-size: 20px 20px;
 }
 
 .gradient-text {
@@ -283,13 +310,46 @@ body {
   background-clip: text;
 }
 
-/* Stagger animation delays */
-.stagger-1 { animation-delay: 0.05s; }
-.stagger-2 { animation-delay: 0.1s; }
-.stagger-3 { animation-delay: 0.15s; }
-.stagger-4 { animation-delay: 0.2s; }
-.stagger-5 { animation-delay: 0.25s; }
-.stagger-6 { animation-delay: 0.3s; }
-.stagger-7 { animation-delay: 0.35s; }
-.stagger-8 { animation-delay: 0.4s; }
-.stagger-9 { animation-delay: 0.45s; }
+/* Metric card decorative accent */
+.metric-accent {
+  position: relative;
+  overflow: hidden;
+}
+.metric-accent::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle at top right, rgba(206, 131, 69, 0.06), transparent 70%);
+  pointer-events: none;
+}
+
+/* Stage connector line */
+.stage-connector {
+  position: relative;
+}
+.stage-connector::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -8px;
+  width: 1px;
+  height: 8px;
+  background: #E8E3E1;
+}
+
+/* ============================================
+   STAGGER ANIMATION DELAYS
+   ============================================ */
+
+.stagger-1 { animation-delay: 0.06s; }
+.stagger-2 { animation-delay: 0.12s; }
+.stagger-3 { animation-delay: 0.18s; }
+.stagger-4 { animation-delay: 0.24s; }
+.stagger-5 { animation-delay: 0.30s; }
+.stagger-6 { animation-delay: 0.36s; }
+.stagger-7 { animation-delay: 0.42s; }
+.stagger-8 { animation-delay: 0.48s; }
+.stagger-9 { animation-delay: 0.54s; }

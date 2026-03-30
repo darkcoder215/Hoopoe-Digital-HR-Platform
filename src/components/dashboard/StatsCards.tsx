@@ -2,14 +2,14 @@
 
 import { useCandidatesStore } from '@/stores/candidates-store';
 import Card from '@/components/ui/Card';
-import { Users, Brain, Send, Rocket, TrendingUp, TrendingDown } from 'lucide-react';
+import { Users, Brain, Send, TrendingUp, ArrowUpLeft, Clock, CheckCircle2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
-function AnimatedNumber({ value }: { value: number }) {
+function AnimatedNumber({ value, suffix = '' }: { value: number; suffix?: string }) {
   const [display, setDisplay] = useState(0);
   useEffect(() => {
     let start = 0;
-    const step = Math.max(1, Math.floor(value / 20));
+    const step = Math.max(1, Math.floor(value / 25));
     const timer = setInterval(() => {
       start += step;
       if (start >= value) {
@@ -18,10 +18,32 @@ function AnimatedNumber({ value }: { value: number }) {
       } else {
         setDisplay(start);
       }
-    }, 30);
+    }, 25);
     return () => clearInterval(timer);
   }, [value]);
-  return <span>{display}</span>;
+  return <><span>{display}</span>{suffix && <span className="text-sm font-bold text-hoopoe-black/30 mr-0.5">{suffix}</span>}</>;
+}
+
+function MiniSparkline({ data, color }: { data: number[]; color: string }) {
+  const max = Math.max(...data);
+  const points = data.map((v, i) => {
+    const x = (i / (data.length - 1)) * 60;
+    const y = 20 - (v / max) * 18;
+    return `${x},${y}`;
+  }).join(' ');
+
+  return (
+    <svg width="60" height="22" className="opacity-60">
+      <polyline
+        points={points}
+        fill="none"
+        stroke={color}
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
 }
 
 export default function StatsCards() {
@@ -33,32 +55,93 @@ export default function StatsCards() {
   const offersSent = candidates.filter((c) => ['offer_sent', 'offer_accepted', 'onboarding'].includes(c.stage)).length;
 
   const stats = [
-    { label: 'إجمالي المرشحين', value: totalCandidates, icon: Users, trend: '+٣ هذا الأسبوع', up: true, color: 'bg-hoopoe-orange/10 text-hoopoe-orange' },
-    { label: 'في مراحل التوظيف', value: inPipeline, icon: Brain, trend: `${inPipeline} نشط`, up: true, color: 'bg-hoopoe-navy/10 text-hoopoe-navy' },
-    { label: 'تقارير الذكاء الاصطناعي', value: reportsGenerated, icon: Brain, trend: '٩٢٪ تحليل تلقائي', up: true, color: 'bg-hoopoe-lt-orange/30 text-hoopoe-brown' },
-    { label: 'عروض مرسلة', value: offersSent, icon: Send, trend: '٦٧٪ نسبة القبول', up: true, color: 'bg-hoopoe-success/10 text-hoopoe-success' },
+    {
+      label: 'إجمالي المرشحين',
+      value: totalCandidates,
+      icon: Users,
+      change: '+٣',
+      changeLabel: 'هذا الأسبوع',
+      up: true,
+      color: 'text-hoopoe-orange',
+      bg: 'bg-hoopoe-orange/8',
+      iconBg: 'bg-gradient-to-br from-hoopoe-orange/15 to-hoopoe-orange/5',
+      sparkData: [2, 4, 3, 6, 5, 8, 12],
+      sparkColor: '#CE8345',
+    },
+    {
+      label: 'في مراحل التوظيف',
+      value: inPipeline,
+      icon: Clock,
+      change: `${inPipeline}`,
+      changeLabel: 'نشط حالياً',
+      up: true,
+      color: 'text-hoopoe-navy',
+      bg: 'bg-hoopoe-navy/6',
+      iconBg: 'bg-gradient-to-br from-hoopoe-navy/12 to-hoopoe-navy/4',
+      sparkData: [5, 6, 4, 8, 7, 9, 10],
+      sparkColor: '#252A35',
+    },
+    {
+      label: 'تقارير الذكاء الاصطناعي',
+      value: reportsGenerated,
+      icon: Brain,
+      change: '٩٢٪',
+      changeLabel: 'تحليل تلقائي',
+      up: true,
+      color: 'text-hoopoe-brown',
+      bg: 'bg-hoopoe-lt-orange/20',
+      iconBg: 'bg-gradient-to-br from-hoopoe-lt-orange/30 to-hoopoe-lt-orange/10',
+      sparkData: [3, 5, 4, 7, 6, 9, 10],
+      sparkColor: '#A34823',
+    },
+    {
+      label: 'عروض مقبولة',
+      value: offersSent,
+      icon: CheckCircle2,
+      change: '٦٧٪',
+      changeLabel: 'نسبة القبول',
+      up: true,
+      color: 'text-hoopoe-success',
+      bg: 'bg-hoopoe-success/6',
+      iconBg: 'bg-gradient-to-br from-hoopoe-success/12 to-hoopoe-success/4',
+      sparkData: [1, 2, 1, 3, 2, 3, 4],
+      sparkColor: '#2D7D46',
+    },
   ];
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
       {stats.map((stat, i) => {
         const Icon = stat.icon;
         return (
-          <Card key={stat.label} hover className={`card-entrance hover-glow stagger-${i + 1}`} padding="md">
-            <div className="flex items-start justify-between">
-              <div>
-                <p className="text-xs font-bold text-hoopoe-black/50 tracking-wider">{stat.label}</p>
-                <p className="text-3xl font-black text-hoopoe-black mt-1">
-                  <AnimatedNumber value={stat.value} />
-                </p>
+          <Card
+            key={stat.label}
+            hover
+            className={`card-entrance hover-lift metric-accent stagger-${i + 1}`}
+            padding="md"
+          >
+            <div className="flex items-start justify-between mb-4">
+              <div className={`p-2.5 rounded-xl ${stat.iconBg}`}>
+                <Icon size={18} className={stat.color} />
               </div>
-              <div className={`p-2.5 rounded-xl ${stat.color} transition-transform duration-300 hover:scale-110`}>
-                <Icon size={20} />
-              </div>
+              <MiniSparkline data={stat.sparkData} color={stat.sparkColor} />
             </div>
-            <div className="flex items-center gap-1.5 mt-3 text-xs">
-              {stat.up ? <TrendingUp size={12} className="text-hoopoe-success" /> : <TrendingDown size={12} className="text-hoopoe-brown" />}
-              <span className="text-hoopoe-black/50 font-bold">{stat.trend}</span>
+
+            <p className="text-[11px] font-bold text-hoopoe-black/40 mb-1">{stat.label}</p>
+            <p className="text-[28px] font-black text-hoopoe-black leading-none mb-3">
+              <AnimatedNumber value={stat.value} />
+            </p>
+
+            <div className="flex items-center gap-1.5 pt-3 border-t border-hoopoe-lt-gray/40">
+              <div className="flex items-center gap-0.5">
+                {stat.up ? (
+                  <ArrowUpLeft size={11} className="text-hoopoe-success" />
+                ) : (
+                  <TrendingUp size={11} className="text-hoopoe-brown rotate-180" />
+                )}
+                <span className="text-[11px] font-black text-hoopoe-success">{stat.change}</span>
+              </div>
+              <span className="text-[10px] text-hoopoe-black/35 font-semibold">{stat.changeLabel}</span>
             </div>
           </Card>
         );
