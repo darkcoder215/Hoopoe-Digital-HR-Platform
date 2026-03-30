@@ -1,0 +1,239 @@
+@import "tailwindcss";
+
+/* ============================================
+   HOOPOE DIGITAL - FONT FACE DECLARATIONS
+   ============================================ */
+
+/* Thmanyah Sans */
+@font-face {
+  font-family: 'Thmanyah Sans';
+  src: url('/fonts/thmanyah-sans/Thmanyahsans12-Light.otf') format('opentype');
+  font-weight: 300;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Thmanyah Sans';
+  src: url('/fonts/thmanyah-sans/Thmanyahsans12-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Thmanyah Sans';
+  src: url('/fonts/thmanyah-sans/Thmanyahsans12-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Thmanyah Sans';
+  src: url('/fonts/thmanyah-sans/Thmanyahsans12-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Thmanyah Sans';
+  src: url('/fonts/thmanyah-sans/Thmanyahsans12-Black.otf') format('opentype');
+  font-weight: 900;
+  font-display: swap;
+}
+
+/* Thmanyah Serif Display */
+@font-face {
+  font-family: 'Thmanyah Serif Display';
+  src: url('/fonts/thmanyah-serif-display/Thmanyahserifdisplay12-Light.otf') format('opentype');
+  font-weight: 300;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Thmanyah Serif Display';
+  src: url('/fonts/thmanyah-serif-display/Thmanyahserifdisplay12-Reg.otf') format('opentype');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Thmanyah Serif Display';
+  src: url('/fonts/thmanyah-serif-display/Thmanyahserifdisplay12-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Thmanyah Serif Display';
+  src: url('/fonts/thmanyah-serif-display/Thmanyahserifdisplay12-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Thmanyah Serif Display';
+  src: url('/fonts/thmanyah-serif-display/Thmanyahserifdisplay12-Black.otf') format('opentype');
+  font-weight: 900;
+  font-display: swap;
+}
+
+/* Thmanyah Serif Text */
+@font-face {
+  font-family: 'Thmanyah Serif Text';
+  src: url('/fonts/thmanyah-serif-text/Thmanyahseriftext12-Light.otf') format('opentype');
+  font-weight: 300;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Thmanyah Serif Text';
+  src: url('/fonts/thmanyah-serif-text/Thmanyahseriftext12-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Thmanyah Serif Text';
+  src: url('/fonts/thmanyah-serif-text/Thmanyahseriftext12-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Thmanyah Serif Text';
+  src: url('/fonts/thmanyah-serif-text/Thmanyahseriftext12-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Thmanyah Serif Text';
+  src: url('/fonts/thmanyah-serif-text/Thmanyahseriftext12-Black.otf') format('opentype');
+  font-weight: 900;
+  font-display: swap;
+}
+
+/* ============================================
+   TAILWIND THEME - DESIGN TOKENS
+   ============================================ */
+
+@theme inline {
+  /* Brand Colors */
+  --color-hoopoe-black: #20242C;
+  --color-hoopoe-orange: #CE8345;
+  --color-hoopoe-brown: #A34823;
+  --color-hoopoe-mid-orange: #E7A15E;
+  --color-hoopoe-lt-orange: #F9CF9D;
+  --color-hoopoe-lt-gray: #E8E3E1;
+  --color-hoopoe-navy: #252A35;
+  --color-hoopoe-white: #FFFFFF;
+  --color-hoopoe-success: #2D7D46;
+  --color-hoopoe-focus: rgba(231, 161, 94, 0.4);
+  --color-hoopoe-surface: #F7F5F4;
+
+  /* Font Families */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --font-display: 'Thmanyah Serif Display', 'Georgia', serif;
+  --font-body: 'Thmanyah Sans', 'Inter', system-ui, sans-serif;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(32, 36, 44, 0.06);
+  --shadow-md: 0 4px 12px rgba(32, 36, 44, 0.08);
+  --shadow-lg: 0 8px 24px rgba(32, 36, 44, 0.12);
+  --shadow-xl: 0 16px 48px rgba(32, 36, 44, 0.16);
+
+  /* Animations */
+  --animate-fade-in: fade-in 0.3s ease-out;
+  --animate-slide-up: slide-up 0.3s ease-out;
+  --animate-scale-in: scale-in 0.2s ease-out;
+  --animate-pulse-orange: pulse-orange 2s ease-in-out infinite;
+  --animate-progress: progress-fill 1.5s ease-out forwards;
+  --animate-count-up: count-up 0.6s ease-out;
+  --animate-shimmer: shimmer 1.5s ease-in-out infinite;
+  --animate-float: float 3s ease-in-out infinite;
+
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes slide-up {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes scale-in {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  @keyframes pulse-orange {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+  }
+  @keyframes progress-fill {
+    from { width: 0%; }
+  }
+  @keyframes count-up {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+  }
+}
+
+/* ============================================
+   BASE STYLES
+   ============================================ */
+
+:root {
+  --background: #FFFFFF;
+  --foreground: #20242C;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #E8E3E1 transparent;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+
+.brand-bar {
+  height: 6px;
+  background: linear-gradient(90deg, #CE8345, #E7A15E);
+  border-radius: 3px;
+}
+
+.brand-bar-thick {
+  height: 48px;
+  background-color: #E7A15E;
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(232, 227, 225, 0.6);
+}
+
+.dot-pattern {
+  background-image: radial-gradient(circle, #F9CF9D 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #CE8345, #A34823);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Stagger animation delays */
+.stagger-1 { animation-delay: 0.05s; }
+.stagger-2 { animation-delay: 0.1s; }
+.stagger-3 { animation-delay: 0.15s; }
+.stagger-4 { animation-delay: 0.2s; }
+.stagger-5 { animation-delay: 0.25s; }
+.stagger-6 { animation-delay: 0.3s; }
+.stagger-7 { animation-delay: 0.35s; }
+.stagger-8 { animation-delay: 0.4s; }
+.stagger-9 { animation-delay: 0.45s; }
