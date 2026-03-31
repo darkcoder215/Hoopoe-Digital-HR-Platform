@@ -6,7 +6,7 @@ import Badge from '@/components/ui/Badge';
 import ScoreGauge from '@/components/ui/ScoreGauge';
 import Link from 'next/link';
 import { getInitials, formatRelativeTime } from '@/lib/utils';
-import { ArrowLeft, Users } from 'lucide-react';
+import { ArrowRight, Users } from 'lucide-react';
 
 export default function RecentCandidates() {
   const candidates = useCandidatesStore((s) => s.candidates);
@@ -21,13 +21,13 @@ export default function RecentCandidates() {
             <Users size={16} className="text-hoopoe-mid-orange" />
           </div>
           <div>
-            <h2 className="text-sm font-black text-hoopoe-black">أحدث المرشحين</h2>
-            <p className="text-[11px] text-hoopoe-black/35 font-semibold">آخر السير الذاتية المقدمة</p>
+            <h2 className="text-sm font-black text-hoopoe-black">Recent Candidates</h2>
+            <p className="text-[11px] text-hoopoe-black/35 font-semibold">Latest CVs submitted</p>
           </div>
         </div>
         <Link href="/candidates" className="flex items-center gap-1 text-[11px] font-bold text-hoopoe-orange hover:text-hoopoe-brown transition-colors">
-          عرض الكل
-          <ArrowLeft size={12} />
+          View All
+          <ArrowRight size={12} />
         </Link>
       </div>
 
@@ -62,7 +62,7 @@ export default function RecentCandidates() {
                 <ScoreGauge score={c.aiReport.overallScore} size="sm" showLabel={false} />
               ) : (
                 <div className="w-[56px] h-[56px] rounded-full border-2 border-dashed border-hoopoe-lt-gray flex items-center justify-center">
-                  <span className="text-[8px] text-hoopoe-black/25 font-bold text-center leading-tight">قيد<br/>التحليل</span>
+                  <span className="text-[8px] text-hoopoe-black/25 font-bold text-center leading-tight">Under<br/>Review</span>
                 </div>
               )}
             </div>

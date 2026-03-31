@@ -5,19 +5,19 @@ import Card from '@/components/ui/Card';
 import { Timer, Target, TrendingUp, Award, BarChart3 } from 'lucide-react';
 
 const departmentData = [
-  { name: 'الهندسة', count: 5, color: '#CE8345', pct: 42 },
-  { name: 'التصميم', count: 2, color: '#E7A15E', pct: 17 },
-  { name: 'المنتجات', count: 2, color: '#F9CF9D', pct: 17 },
-  { name: 'البنية التحتية', count: 2, color: '#252A35', pct: 17 },
-  { name: 'البيانات', count: 1, color: '#2D7D46', pct: 8 },
+  { name: 'Engineering', count: 5, color: '#D4793A', pct: 42 },
+  { name: 'Design', count: 2, color: '#E8994A', pct: 17 },
+  { name: 'Product', count: 2, color: '#F7C97D', pct: 17 },
+  { name: 'Infrastructure', count: 2, color: '#1E2332', pct: 17 },
+  { name: 'Data', count: 1, color: '#22875A', pct: 8 },
 ];
 
 const weeklyData = [
-  { label: 'الأحد', value: 3 },
-  { label: 'الإثنين', value: 5 },
-  { label: 'الثلاثاء', value: 2 },
-  { label: 'الأربعاء', value: 7 },
-  { label: 'الخميس', value: 4 },
+  { label: 'Mon', value: 5 },
+  { label: 'Tue', value: 2 },
+  { label: 'Wed', value: 7 },
+  { label: 'Thu', value: 4 },
+  { label: 'Fri', value: 3 },
 ];
 
 export default function HiringMetrics() {
@@ -35,8 +35,8 @@ export default function HiringMetrics() {
           <BarChart3 size={16} className="text-hoopoe-navy" />
         </div>
         <div>
-          <h2 className="text-sm font-black text-hoopoe-black">مقاييس التوظيف</h2>
-          <p className="text-[11px] text-hoopoe-black/35 font-semibold">إحصائيات الأداء الأسبوعية</p>
+          <h2 className="text-sm font-black text-hoopoe-black">Hiring Metrics</h2>
+          <p className="text-[11px] text-hoopoe-black/35 font-semibold">Weekly performance stats</p>
         </div>
       </div>
 
@@ -45,36 +45,36 @@ export default function HiringMetrics() {
         <div className="p-3 rounded-xl bg-hoopoe-surface/60 border border-hoopoe-lt-gray/40">
           <div className="flex items-center gap-2 mb-1.5">
             <Timer size={12} className="text-hoopoe-orange" />
-            <span className="text-[10px] text-hoopoe-black/40 font-bold">متوسط وقت التوظيف</span>
+            <span className="text-[10px] text-hoopoe-black/40 font-bold">Avg. Hiring Time</span>
           </div>
-          <p className="text-lg font-black text-hoopoe-black">١٤ <span className="text-xs font-bold text-hoopoe-black/40">يوم</span></p>
+          <p className="text-lg font-black text-hoopoe-black">14 <span className="text-xs font-bold text-hoopoe-black/40">days</span></p>
         </div>
         <div className="p-3 rounded-xl bg-hoopoe-surface/60 border border-hoopoe-lt-gray/40">
           <div className="flex items-center gap-2 mb-1.5">
             <Target size={12} className="text-hoopoe-success" />
-            <span className="text-[10px] text-hoopoe-black/40 font-bold">نسبة القبول</span>
+            <span className="text-[10px] text-hoopoe-black/40 font-bold">Acceptance Rate</span>
           </div>
-          <p className="text-lg font-black text-hoopoe-black">٦٧<span className="text-xs font-bold text-hoopoe-black/40">٪</span></p>
+          <p className="text-lg font-black text-hoopoe-black">67<span className="text-xs font-bold text-hoopoe-black/40">%</span></p>
         </div>
         <div className="p-3 rounded-xl bg-hoopoe-surface/60 border border-hoopoe-lt-gray/40">
           <div className="flex items-center gap-2 mb-1.5">
             <Award size={12} className="text-hoopoe-mid-orange" />
-            <span className="text-[10px] text-hoopoe-black/40 font-bold">متوسط التقييم</span>
+            <span className="text-[10px] text-hoopoe-black/40 font-bold">Avg. Score</span>
           </div>
-          <p className="text-lg font-black text-hoopoe-black">{avgScore}<span className="text-xs font-bold text-hoopoe-black/40">/١٠٠</span></p>
+          <p className="text-lg font-black text-hoopoe-black">{avgScore}<span className="text-xs font-bold text-hoopoe-black/40">/100</span></p>
         </div>
         <div className="p-3 rounded-xl bg-hoopoe-surface/60 border border-hoopoe-lt-gray/40">
           <div className="flex items-center gap-2 mb-1.5">
             <TrendingUp size={12} className="text-hoopoe-brown" />
-            <span className="text-[10px] text-hoopoe-black/40 font-bold">معدل التحويل</span>
+            <span className="text-[10px] text-hoopoe-black/40 font-bold">Conversion Rate</span>
           </div>
-          <p className="text-lg font-black text-hoopoe-black">٢٥<span className="text-xs font-bold text-hoopoe-black/40">٪</span></p>
+          <p className="text-lg font-black text-hoopoe-black">25<span className="text-xs font-bold text-hoopoe-black/40">%</span></p>
         </div>
       </div>
 
       {/* Weekly Activity Chart */}
       <div className="mb-6">
-        <p className="text-[10px] text-hoopoe-black/35 font-bold mb-3">السير الذاتية المستلمة هذا الأسبوع</p>
+        <p className="text-[10px] text-hoopoe-black/35 font-bold mb-3 uppercase tracking-wide">CVs Received This Week</p>
         <div className="flex items-end gap-2 h-20">
           {weeklyData.map((d) => {
             const height = Math.max(12, (d.value / 7) * 100);
@@ -94,7 +94,7 @@ export default function HiringMetrics() {
 
       {/* Department Breakdown */}
       <div>
-        <p className="text-[10px] text-hoopoe-black/35 font-bold mb-3">التوزيع حسب القسم</p>
+        <p className="text-[10px] text-hoopoe-black/35 font-bold mb-3 uppercase tracking-wide">By Department</p>
         <div className="space-y-2.5">
           {departmentData.map((dept) => (
             <div key={dept.name} className="group">

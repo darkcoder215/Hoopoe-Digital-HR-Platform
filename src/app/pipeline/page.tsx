@@ -11,7 +11,7 @@ import { cn, getInitials, formatRelativeTime } from '@/lib/utils';
 import Link from 'next/link';
 import {
   FileText, Brain, Filter, Users, Crown, Code, Send, CheckCircle, Rocket,
-  ChevronLeft, Search, ArrowLeft, BarChart3,
+  ChevronRight, Search, BarChart3,
 } from 'lucide-react';
 
 const iconMap: Record<string, React.ElementType> = {
@@ -54,7 +54,7 @@ function CandidateCard({ candidate, onMove }: { candidate: Candidate; onMove: (i
             onClick={(e) => { e.stopPropagation(); onMove(candidate.id, nextStage.key); }}
             className="opacity-0 group-hover:opacity-100 flex items-center gap-0.5 text-[9px] font-bold text-hoopoe-orange hover:text-hoopoe-brown transition-all cursor-pointer"
           >
-            {nextStage.label} <ChevronLeft size={10} />
+            {nextStage.label} <ChevronRight size={10} />
           </button>
         )}
       </div>
@@ -86,7 +86,7 @@ function PipelineColumn({ stage, candidates, onMove, index }: { stage: typeof PI
         {candidates.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-full text-hoopoe-black/15 py-12">
             <Icon size={20} className="mb-2" />
-            <span className="text-[10px] font-bold">لا يوجد مرشحون</span>
+            <span className="text-[10px] font-bold">No candidates</span>
           </div>
         ) : (
           candidates.map((c) => <CandidateCard key={c.id} candidate={c} onMove={onMove} />)
@@ -113,31 +113,31 @@ export default function PipelinePage() {
 
   return (
     <>
-      <Topbar title="لوحة مراحل التوظيف" subtitle="تتبع المرشحين عبر مراحل التوظيف المختلفة" />
+      <Topbar title="Hiring Pipeline" subtitle="Track candidates across hiring stages" />
       <div className="p-6 space-y-5">
         {/* Summary Bar */}
         <div className="flex items-center gap-4 animate-fade-in">
           <div className="relative flex-1 max-w-sm">
-            <Search size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-hoopoe-black/25" />
+            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-hoopoe-black/25" />
             <input
               type="text"
-              placeholder="تصفية المرشحين..."
+              placeholder="Filter candidates..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="pr-9 pl-4 py-2.5 text-[12px] font-semibold rounded-xl border border-hoopoe-lt-gray/70 bg-white focus:border-hoopoe-orange focus:ring-2 focus:ring-hoopoe-focus outline-none w-full transition-all placeholder:text-hoopoe-black/25"
+              className="pl-9 pr-4 py-2.5 text-[12px] font-semibold rounded-xl border border-hoopoe-lt-gray/70 bg-white focus:border-hoopoe-orange focus:ring-2 focus:ring-hoopoe-focus outline-none w-full transition-all placeholder:text-hoopoe-black/25"
             />
           </div>
 
-          <div className="flex items-center gap-6 mr-auto">
+          <div className="flex items-center gap-6 ml-auto">
             <div className="flex items-center gap-2">
               <BarChart3 size={14} className="text-hoopoe-black/30" />
-              <span className="text-[11px] text-hoopoe-black/40 font-semibold">الإجمالي</span>
+              <span className="text-[11px] text-hoopoe-black/40 font-semibold">Total</span>
               <span className="text-[12px] font-black text-hoopoe-black">{totalInPipeline}</span>
             </div>
             <div className="w-px h-4 bg-hoopoe-lt-gray" />
             <div className="flex items-center gap-2">
               <Brain size={14} className="text-hoopoe-black/30" />
-              <span className="text-[11px] text-hoopoe-black/40 font-semibold">متوسط التقييم</span>
+              <span className="text-[11px] text-hoopoe-black/40 font-semibold">Avg. Score</span>
               <span className="text-[12px] font-black text-hoopoe-orange">{avgScore}</span>
             </div>
           </div>

@@ -14,11 +14,11 @@ const iconMap: Record<string, { icon: React.ElementType; color: string; bg: stri
 };
 
 const typeLabels: Record<string, string> = {
-  upload: 'رفع سيرة',
-  stage_change: 'تغيير مرحلة',
-  report_generated: 'تقرير جاهز',
-  note_added: 'ملاحظة',
-  offer_sent: 'عرض عمل',
+  upload: 'CV Upload',
+  stage_change: 'Stage Change',
+  report_generated: 'Report Ready',
+  note_added: 'Note Added',
+  offer_sent: 'Offer Sent',
 };
 
 export default function ActivityFeed() {
@@ -30,15 +30,15 @@ export default function ActivityFeed() {
           <Activity size={16} className="text-hoopoe-success" />
         </div>
         <div>
-          <h2 className="text-sm font-black text-hoopoe-black">آخر النشاطات</h2>
-          <p className="text-[11px] text-hoopoe-black/35 font-semibold">أحدث الأحداث في المنصة</p>
+          <h2 className="text-sm font-black text-hoopoe-black">Recent Activity</h2>
+          <p className="text-[11px] text-hoopoe-black/35 font-semibold">Latest platform events</p>
         </div>
       </div>
 
       {/* Activity Items */}
       <div className="relative">
         {/* Timeline Line */}
-        <div className="absolute right-[17px] top-4 bottom-4 w-px bg-gradient-to-b from-hoopoe-lt-gray via-hoopoe-lt-gray/50 to-transparent" />
+        <div className="absolute left-[17px] top-4 bottom-4 w-px bg-gradient-to-b from-hoopoe-lt-gray via-hoopoe-lt-gray/50 to-transparent" />
 
         <div className="space-y-1">
           {mockActivities.map((activity, i) => {

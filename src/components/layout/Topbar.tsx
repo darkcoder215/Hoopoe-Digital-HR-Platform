@@ -10,7 +10,7 @@ interface TopbarProps {
 }
 
 export default function Topbar({ title, subtitle }: TopbarProps) {
-  const today = new Date().toLocaleDateString('ar-SA', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+  const today = new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
 
   return (
     <header className="h-[72px] border-b border-hoopoe-lt-gray/60 bg-white/90 backdrop-blur-md flex items-center justify-between px-8 sticky top-0 z-30">
@@ -30,11 +30,11 @@ export default function Topbar({ title, subtitle }: TopbarProps) {
 
         {/* Search */}
         <div className="relative hidden md:block">
-          <Search size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-hoopoe-black/25" />
+          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-hoopoe-black/25" />
           <input
             type="text"
-            placeholder="ابحث عن مرشح..."
-            className="pr-9 pl-4 py-2.5 text-[12px] font-semibold rounded-xl border border-hoopoe-lt-gray/70 bg-hoopoe-surface/40 focus:border-hoopoe-orange focus:ring-2 focus:ring-hoopoe-focus focus:bg-white outline-none w-52 transition-all duration-200 placeholder:text-hoopoe-black/25"
+            placeholder="Search candidates..."
+            className="pl-9 pr-4 py-2.5 text-[12px] font-semibold rounded-xl border border-hoopoe-lt-gray/70 bg-hoopoe-surface/40 focus:border-hoopoe-orange focus:ring-2 focus:ring-hoopoe-focus focus:bg-white outline-none w-52 transition-all duration-200 placeholder:text-hoopoe-black/25"
           />
         </div>
 
@@ -42,7 +42,7 @@ export default function Topbar({ title, subtitle }: TopbarProps) {
         <Link href="/upload">
           <Button size="sm" className="hidden sm:inline-flex shadow-sm shadow-hoopoe-orange/15">
             <Plus size={14} />
-            رفع سيرة ذاتية
+            Upload CV
           </Button>
         </Link>
 

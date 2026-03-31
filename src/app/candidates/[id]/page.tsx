@@ -12,10 +12,10 @@ import { PipelineStage } from '@/lib/types';
 import { cn, getInitials, formatDate, getScoreColor } from '@/lib/utils';
 import Link from 'next/link';
 import {
-  ArrowRight, Mail, Phone, FileText, Download, ChevronLeft,
+  ArrowLeft, Mail, Phone, FileText, Download, ChevronRight,
   CheckCircle, AlertTriangle, Briefcase, GraduationCap, Clock,
   MessageSquare, Send, Brain, Zap, Shield, Target, Star,
-  TrendingUp, Award, BarChart3, Layers, Users, Activity, Gauge,
+  TrendingUp, Award, BarChart3, Layers, Activity, Gauge,
 } from 'lucide-react';
 
 /* ── Radar Chart SVG ── */
@@ -42,17 +42,17 @@ function SkillRadar({ skills }: { skills: { name: string; score: number }[] }) {
       <svg viewBox="0 0 200 200" className="w-full max-w-[220px]">
         {/* Grid */}
         {gridPolygons.map((pts, i) => (
-          <polygon key={i} points={pts} fill="none" stroke="#E8E3E1" strokeWidth={i === levels.length - 1 ? 1 : 0.5} opacity={0.6} />
+          <polygon key={i} points={pts} fill="none" stroke="#E5E0DD" strokeWidth={i === levels.length - 1 ? 1 : 0.5} opacity={0.6} />
         ))}
         {/* Axes */}
         {top.map((_, i) => {
           const p = getPoint(i, maxR);
-          return <line key={i} x1={cx} y1={cy} x2={p.x} y2={p.y} stroke="#E8E3E1" strokeWidth={0.5} opacity={0.5} />;
+          return <line key={i} x1={cx} y1={cy} x2={p.x} y2={p.y} stroke="#E5E0DD" strokeWidth={0.5} opacity={0.5} />;
         })}
         {/* Data */}
-        <polygon points={dataPolygon} fill="rgba(206,131,69,0.15)" stroke="#CE8345" strokeWidth={1.5} />
+        <polygon points={dataPolygon} fill="rgba(212,121,58,0.15)" stroke="#D4793A" strokeWidth={1.5} />
         {dataPoints.map((p, i) => (
-          <circle key={i} cx={p.x} cy={p.y} r={3} fill="#CE8345" />
+          <circle key={i} cx={p.x} cy={p.y} r={3} fill="#D4793A" />
         ))}
         {/* Labels */}
         {top.map((s, i) => {
@@ -76,7 +76,7 @@ function CompatibilityRing({ label, score, color }: { label: string; score: numb
     <div className="flex flex-col items-center gap-1.5">
       <div className="relative">
         <svg width={52} height={52} className="-rotate-90">
-          <circle cx={26} cy={26} r={r} stroke="#E8E3E1" strokeWidth={3.5} fill="none" />
+          <circle cx={26} cy={26} r={r} stroke="#E5E0DD" strokeWidth={3.5} fill="none" />
           <circle cx={26} cy={26} r={r} stroke={color} strokeWidth={3.5} fill="none"
             strokeDasharray={c} strokeDashoffset={offset} strokeLinecap="round"
             className="transition-all duration-1000 ease-out" />
@@ -93,12 +93,12 @@ function MiniMetric({ icon: Icon, label, value, color, bg }: {
   icon: React.ElementType; label: string; value: string; color: string; bg: string;
 }) {
   return (
-    <div className="flex items-center gap-2.5 p-3 rounded-xl bg-white border border-hoopoe-lt-gray/40">
+    <div className="flex items-center gap-2.5 p-3 rounded-xl bg-white border border-hoopoe-lt-gray/40 hover-glow">
       <div className={`w-8 h-8 rounded-lg ${bg} flex items-center justify-center flex-shrink-0`}>
         <Icon size={14} className={color} />
       </div>
       <div>
-        <p className="text-[9px] text-hoopoe-black/35 font-bold">{label}</p>
+        <p className="text-[9px] text-hoopoe-black/35 font-bold uppercase tracking-wider">{label}</p>
         <p className="text-sm font-black text-hoopoe-black leading-tight">{value}</p>
       </div>
     </div>
@@ -115,10 +115,10 @@ export default function CandidateDetailPage({ params }: { params: Promise<{ id: 
   if (!candidate) {
     return (
       <>
-        <Topbar title="المرشح غير موجود" />
+        <Topbar title="Candidate Not Found" />
         <div className="p-8 text-center">
-          <p className="text-hoopoe-black/40 font-bold">هذا المرشح غير موجود.</p>
-          <Link href="/candidates"><Button variant="secondary" className="mt-4">العودة للمرشحين</Button></Link>
+          <p className="text-hoopoe-black/40 font-bold">This candidate does not exist.</p>
+          <Link href="/candidates"><Button variant="secondary" className="mt-4">Back to Candidates</Button></Link>
         </div>
       </>
     );
@@ -134,7 +134,7 @@ export default function CandidateDetailPage({ params }: { params: Promise<{ id: 
   const topSkill = report ? [...report.skills].sort((a, b) => b.score - a.score)[0] : null;
   const expertSkills = report ? report.skills.filter((s) => s.score >= 80).length : 0;
 
-  // Compatibility scores (derived from report data for richer display)
+  // Compatibility scores
   const technicalFit = report ? Math.min(100, Math.round(avgSkillScore * 1.1)) : 0;
   const culturalFit = report ? Math.min(100, Math.round(60 + report.strengths.length * 8 - report.concerns.length * 5)) : 0;
   const experienceFit = report ? Math.min(100, Math.round(report.experience.length * 25 + report.education.length * 15)) : 0;
@@ -144,7 +144,7 @@ export default function CandidateDetailPage({ params }: { params: Promise<{ id: 
     if (!noteText.trim()) return;
     addNote(candidate.id, {
       id: Date.now().toString(),
-      author: 'مدير الموارد البشرية',
+      author: 'HR Manager',
       content: noteText,
       createdAt: new Date().toISOString(),
     });
@@ -157,14 +157,14 @@ export default function CandidateDetailPage({ params }: { params: Promise<{ id: 
       <div className="p-8 max-w-[1400px]">
         {/* Back link */}
         <Link href="/candidates" className="inline-flex items-center gap-1.5 text-xs font-bold text-hoopoe-black/40 hover:text-hoopoe-orange transition-colors mb-6">
-          <ArrowRight size={14} /> العودة للمرشحين
+          <ArrowLeft size={14} /> Back to Candidates
         </Link>
 
         <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
-          {/* ═══ Left column — Report & Analytics ═══ */}
+          {/* Left column — Report & Analytics */}
           <div className="xl:col-span-2 space-y-6">
 
-            {/* ── Header Card ── */}
+            {/* Header Card */}
             <Card className="card-entrance">
               <div className="flex items-start gap-5">
                 <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-hoopoe-orange/15 to-hoopoe-orange/5 text-hoopoe-orange flex items-center justify-center text-xl font-black flex-shrink-0">
@@ -185,29 +185,29 @@ export default function CandidateDetailPage({ params }: { params: Promise<{ id: 
                   </div>
                   <div className="flex items-center gap-2 mt-3">
                     <Badge variant="stage" stage={candidate.stage} />
-                    <span className="text-[10px] text-hoopoe-black/30 font-bold">تم الرفع {formatDate(candidate.uploadedAt)}</span>
+                    <span className="text-[10px] text-hoopoe-black/30 font-bold">Uploaded {formatDate(candidate.uploadedAt)}</span>
                   </div>
                 </div>
               </div>
             </Card>
 
-            {/* ── Quick Metrics Row ── */}
+            {/* Quick Metrics Row */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3 card-entrance stagger-2">
-              <MiniMetric icon={Clock} label="أيام في المسار" value={`${daysInPipeline} يوم`} color="text-hoopoe-navy" bg="bg-hoopoe-navy/8" />
-              <MiniMetric icon={Layers} label="المرحلة الحالية" value={`${stageIndex + 1} من ${PIPELINE_STAGES.length}`} color="text-hoopoe-orange" bg="bg-hoopoe-orange/8" />
-              <MiniMetric icon={Zap} label="مهارات متقدمة" value={`${expertSkills} مهارة`} color="text-hoopoe-success" bg="bg-hoopoe-success/8" />
-              <MiniMetric icon={Award} label="أعلى مهارة" value={topSkill?.name || '—'} color="text-hoopoe-brown" bg="bg-hoopoe-brown/8" />
+              <MiniMetric icon={Clock} label="Days in Pipeline" value={`${daysInPipeline} days`} color="text-hoopoe-navy" bg="bg-hoopoe-navy/8" />
+              <MiniMetric icon={Layers} label="Current Stage" value={`${stageIndex + 1} of ${PIPELINE_STAGES.length}`} color="text-hoopoe-orange" bg="bg-hoopoe-orange/8" />
+              <MiniMetric icon={Zap} label="Expert Skills" value={`${expertSkills} skills`} color="text-hoopoe-success" bg="bg-hoopoe-success/8" />
+              <MiniMetric icon={Award} label="Top Skill" value={topSkill?.name || '—'} color="text-hoopoe-brown" bg="bg-hoopoe-brown/8" />
             </div>
 
-            {/* ── Pipeline Progress ── */}
+            {/* Pipeline Progress */}
             <Card className="card-entrance stagger-3">
               <div className="flex items-center gap-2.5 mb-4">
                 <div className="section-icon bg-hoopoe-orange/8">
                   <Target size={14} className="text-hoopoe-orange" />
                 </div>
                 <div>
-                  <h3 className="text-xs font-black text-hoopoe-black">تقدم مراحل التوظيف</h3>
-                  <p className="text-[10px] text-hoopoe-black/30 font-semibold">المرحلة {stageIndex + 1} من {PIPELINE_STAGES.length}</p>
+                  <h3 className="text-xs font-black text-hoopoe-black">Pipeline Progress</h3>
+                  <p className="text-[10px] text-hoopoe-black/30 font-semibold">Stage {stageIndex + 1} of {PIPELINE_STAGES.length}</p>
                 </div>
               </div>
               <div className="flex items-center gap-0.5">
@@ -232,7 +232,7 @@ export default function CandidateDetailPage({ params }: { params: Promise<{ id: 
               </div>
             </Card>
 
-            {/* ── AI Report ── */}
+            {/* AI Report */}
             {report ? (
               <>
                 {/* Summary + Compatibility */}
@@ -243,14 +243,14 @@ export default function CandidateDetailPage({ params }: { params: Promise<{ id: 
                         <Brain size={14} className="text-hoopoe-orange" />
                       </div>
                       <div>
-                        <h3 className="text-xs font-black text-hoopoe-black">ملخص تحليل الذكاء الاصطناعي</h3>
-                        <p className="text-[10px] text-hoopoe-black/30 font-semibold">تقرير شامل عن المرشح</p>
+                        <h3 className="text-xs font-black text-hoopoe-black">AI Analysis Summary</h3>
+                        <p className="text-[10px] text-hoopoe-black/30 font-semibold">Comprehensive candidate report</p>
                       </div>
                     </div>
                     <p className="text-[13px] text-hoopoe-black/65 leading-relaxed font-semibold">{report.summary}</p>
                     <div className="mt-4 pt-3 border-t border-hoopoe-lt-gray/30 flex items-center gap-4 text-[10px] text-hoopoe-black/35 font-bold">
-                      <span className="flex items-center gap-1"><Activity size={10} /> تم التحليل {formatDate(report.analyzedAt)}</span>
-                      <span className="flex items-center gap-1"><BarChart3 size={10} /> {report.skills.length} مهارات تم تقييمها</span>
+                      <span className="flex items-center gap-1"><Activity size={10} /> Analyzed {formatDate(report.analyzedAt)}</span>
+                      <span className="flex items-center gap-1"><BarChart3 size={10} /> {report.skills.length} skills evaluated</span>
                     </div>
                   </Card>
 
@@ -259,13 +259,13 @@ export default function CandidateDetailPage({ params }: { params: Promise<{ id: 
                       <div className="section-icon bg-hoopoe-success/8">
                         <Gauge size={14} className="text-hoopoe-success" />
                       </div>
-                      <h3 className="text-xs font-black text-hoopoe-black">مؤشر التوافق</h3>
+                      <h3 className="text-xs font-black text-hoopoe-black">Compatibility Index</h3>
                     </div>
                     <div className="grid grid-cols-2 gap-4 place-items-center">
-                      <CompatibilityRing label="تقني" score={technicalFit} color="#CE8345" />
-                      <CompatibilityRing label="ثقافي" score={culturalFit} color="#2D7D46" />
-                      <CompatibilityRing label="الخبرة" score={experienceFit} color="#252A35" />
-                      <CompatibilityRing label="الإجمالي" score={overallFit} color={overallFit >= 75 ? '#2D7D46' : '#CE8345'} />
+                      <CompatibilityRing label="Technical" score={technicalFit} color="#D4793A" />
+                      <CompatibilityRing label="Cultural" score={culturalFit} color="#22875A" />
+                      <CompatibilityRing label="Experience" score={experienceFit} color="#1E2332" />
+                      <CompatibilityRing label="Overall" score={overallFit} color={overallFit >= 75 ? '#22875A' : '#D4793A'} />
                     </div>
                   </Card>
                 </div>
@@ -278,14 +278,14 @@ export default function CandidateDetailPage({ params }: { params: Promise<{ id: 
                         <BarChart3 size={14} className="text-hoopoe-navy" />
                       </div>
                       <div>
-                        <h3 className="text-xs font-black text-hoopoe-black">خريطة المهارات</h3>
-                        <p className="text-[10px] text-hoopoe-black/30 font-semibold">توزيع المهارات بشكل رادار</p>
+                        <h3 className="text-xs font-black text-hoopoe-black">Skills Map</h3>
+                        <p className="text-[10px] text-hoopoe-black/30 font-semibold">Radar skill distribution</p>
                       </div>
                     </div>
                     <SkillRadar skills={report.skills} />
                     <div className="mt-3 text-center">
-                      <span className="text-[10px] font-bold text-hoopoe-black/30">متوسط المهارات: </span>
-                      <span className={cn('text-[11px] font-black', getScoreColor(avgSkillScore))}>{avgSkillScore}/١٠٠</span>
+                      <span className="text-[10px] font-bold text-hoopoe-black/30">Avg. Skills: </span>
+                      <span className={cn('text-[11px] font-black', getScoreColor(avgSkillScore))}>{avgSkillScore}/100</span>
                     </div>
                   </Card>
 
@@ -295,8 +295,8 @@ export default function CandidateDetailPage({ params }: { params: Promise<{ id: 
                         <Zap size={14} className="text-hoopoe-orange" />
                       </div>
                       <div>
-                        <h3 className="text-xs font-black text-hoopoe-black">تقييم المهارات</h3>
-                        <p className="text-[10px] text-hoopoe-black/30 font-semibold">{report.skills.length} مهارات تم تحليلها</p>
+                        <h3 className="text-xs font-black text-hoopoe-black">Skills Assessment</h3>
+                        <p className="text-[10px] text-hoopoe-black/30 font-semibold">{report.skills.length} skills analyzed</p>
                       </div>
                     </div>
                     <div className="space-y-3">
@@ -307,7 +307,7 @@ export default function CandidateDetailPage({ params }: { params: Promise<{ id: 
                             <div className="flex items-center gap-2">
                               <span className={cn('text-[11px] font-black', getScoreColor(skill.score))}>{skill.score}</span>
                               {skill.yearsOfExperience && (
-                                <span className="text-[9px] text-hoopoe-black/25 font-bold bg-hoopoe-surface px-1.5 py-0.5 rounded-md">{skill.yearsOfExperience} سنة</span>
+                                <span className="text-[9px] text-hoopoe-black/25 font-bold bg-hoopoe-surface px-1.5 py-0.5 rounded-md">{skill.yearsOfExperience} yrs</span>
                               )}
                             </div>
                           </div>
@@ -316,7 +316,7 @@ export default function CandidateDetailPage({ params }: { params: Promise<{ id: 
                               className="h-full rounded-full transition-all duration-1000 ease-out"
                               style={{
                                 width: `${skill.score}%`,
-                                background: skill.score >= 80 ? '#2D7D46' : skill.score >= 60 ? 'linear-gradient(90deg, #CE8345, #E7A15E)' : '#E7A15E',
+                                background: skill.score >= 80 ? '#22875A' : skill.score >= 60 ? 'linear-gradient(90deg, #D4793A, #E8994A)' : '#E8994A',
                               }}
                             />
                           </div>
@@ -334,8 +334,8 @@ export default function CandidateDetailPage({ params }: { params: Promise<{ id: 
                         <CheckCircle size={14} className="text-hoopoe-success" />
                       </div>
                       <div>
-                        <h3 className="text-xs font-black text-hoopoe-success">نقاط القوة</h3>
-                        <p className="text-[10px] text-hoopoe-black/30 font-semibold">{report.strengths.length} نقاط إيجابية</p>
+                        <h3 className="text-xs font-black text-hoopoe-success">Strengths</h3>
+                        <p className="text-[10px] text-hoopoe-black/30 font-semibold">{report.strengths.length} positive highlights</p>
                       </div>
                     </div>
                     <div className="space-y-2">
@@ -353,8 +353,8 @@ export default function CandidateDetailPage({ params }: { params: Promise<{ id: 
                         <AlertTriangle size={14} className="text-hoopoe-brown" />
                       </div>
                       <div>
-                        <h3 className="text-xs font-black text-hoopoe-brown">ملاحظات</h3>
-                        <p className="text-[10px] text-hoopoe-black/30 font-semibold">{report.concerns.length} نقاط للمراجعة</p>
+                        <h3 className="text-xs font-black text-hoopoe-brown">Concerns</h3>
+                        <p className="text-[10px] text-hoopoe-black/30 font-semibold">{report.concerns.length} areas for review</p>
                       </div>
                     </div>
                     <div className="space-y-2">
@@ -368,7 +368,7 @@ export default function CandidateDetailPage({ params }: { params: Promise<{ id: 
                   </Card>
                 </div>
 
-                {/* Experience + Education side by side */}
+                {/* Experience + Education */}
                 <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
                   <Card className="md:col-span-3 card-entrance stagger-7">
                     <div className="flex items-center gap-2.5 mb-5">
@@ -376,15 +376,15 @@ export default function CandidateDetailPage({ params }: { params: Promise<{ id: 
                         <Briefcase size={14} className="text-hoopoe-orange" />
                       </div>
                       <div>
-                        <h3 className="text-xs font-black text-hoopoe-black">الخبرات العملية</h3>
-                        <p className="text-[10px] text-hoopoe-black/30 font-semibold">{report.experience.length} خبرات مسجلة</p>
+                        <h3 className="text-xs font-black text-hoopoe-black">Work Experience</h3>
+                        <p className="text-[10px] text-hoopoe-black/30 font-semibold">{report.experience.length} positions recorded</p>
                       </div>
                     </div>
-                    <div className="relative space-y-4 pr-6">
-                      <div className="absolute right-[7px] top-2 bottom-2 w-px bg-gradient-to-b from-hoopoe-orange/40 via-hoopoe-lt-gray/50 to-transparent" />
+                    <div className="relative space-y-4 pl-6">
+                      <div className="absolute left-[7px] top-2 bottom-2 w-px bg-gradient-to-b from-hoopoe-orange/40 via-hoopoe-lt-gray/50 to-transparent" />
                       {report.experience.map((exp, i) => (
-                        <div key={i} className="relative slide-in-rtl" style={{ animationDelay: `${i * 0.1}s` }}>
-                          <div className="absolute -right-6 top-1 w-3.5 h-3.5 rounded-full border-2 border-hoopoe-orange bg-white z-10" />
+                        <div key={i} className="relative slide-in-ltr" style={{ animationDelay: `${i * 0.1}s` }}>
+                          <div className="absolute -left-6 top-1 w-3.5 h-3.5 rounded-full border-2 border-hoopoe-orange bg-white z-10" />
                           <div className="p-3 rounded-xl bg-hoopoe-surface/30 border border-hoopoe-lt-gray/20">
                             <h4 className="text-[12px] font-bold text-hoopoe-black">{exp.role}</h4>
                             <p className="text-[11px] text-hoopoe-orange font-bold">{exp.company}</p>
@@ -402,8 +402,8 @@ export default function CandidateDetailPage({ params }: { params: Promise<{ id: 
                         <GraduationCap size={14} className="text-hoopoe-navy" />
                       </div>
                       <div>
-                        <h3 className="text-xs font-black text-hoopoe-black">التعليم</h3>
-                        <p className="text-[10px] text-hoopoe-black/30 font-semibold">{report.education.length} شهادة</p>
+                        <h3 className="text-xs font-black text-hoopoe-black">Education</h3>
+                        <p className="text-[10px] text-hoopoe-black/30 font-semibold">{report.education.length} {report.education.length === 1 ? 'degree' : 'degrees'}</p>
                       </div>
                     </div>
                     <div className="space-y-3">
@@ -413,7 +413,7 @@ export default function CandidateDetailPage({ params }: { params: Promise<{ id: 
                             <GraduationCap size={16} className="text-hoopoe-navy" />
                           </div>
                           <div>
-                            <p className="text-[11px] font-bold text-hoopoe-black">{edu.degree} في {edu.field}</p>
+                            <p className="text-[11px] font-bold text-hoopoe-black">{edu.degree} in {edu.field}</p>
                             <p className="text-[10px] text-hoopoe-black/40 font-semibold">{edu.institution}</p>
                             <p className="text-[9px] text-hoopoe-black/25 font-bold mt-0.5">{edu.year}</p>
                           </div>
@@ -422,15 +422,15 @@ export default function CandidateDetailPage({ params }: { params: Promise<{ id: 
                     </div>
 
                     {/* AI Recommendation */}
-                    <div className="mt-5 p-3.5 rounded-xl bg-gradient-to-l from-hoopoe-orange/8 to-hoopoe-brown/5 border border-hoopoe-orange/15">
+                    <div className="mt-5 p-3.5 rounded-xl bg-gradient-to-r from-hoopoe-orange/8 to-hoopoe-brown/5 border border-hoopoe-orange/15">
                       <div className="flex items-center gap-2 mb-2">
                         <Brain size={12} className="text-hoopoe-orange" />
-                        <span className="text-[10px] font-black text-hoopoe-orange">توصية الذكاء الاصطناعي</span>
+                        <span className="text-[10px] font-black text-hoopoe-orange uppercase tracking-wider">AI Recommendation</span>
                       </div>
                       <p className="text-[11px] text-hoopoe-black/55 font-semibold leading-relaxed">
-                        {report.overallScore >= 85 ? 'مرشح متميز — يُنصح بالمضي قدماً في عملية التوظيف بأسرع وقت' :
-                         report.overallScore >= 70 ? 'مرشح جيد — يحتاج إلى تقييم إضافي في بعض المجالات' :
-                         'مرشح واعد — يُنصح بإجراء مقابلة تقنية معمقة'}
+                        {report.overallScore >= 85 ? 'Outstanding candidate — Strongly recommend fast-tracking through the hiring process.' :
+                         report.overallScore >= 70 ? 'Strong candidate — Additional evaluation recommended in select areas.' :
+                         'Promising candidate — Recommend a thorough technical interview.'}
                       </p>
                     </div>
                   </Card>
@@ -441,8 +441,8 @@ export default function CandidateDetailPage({ params }: { params: Promise<{ id: 
                 <div className="w-16 h-16 rounded-2xl bg-hoopoe-orange/8 flex items-center justify-center mx-auto mb-4">
                   <Brain size={28} className="text-hoopoe-orange animate-pulse-orange" />
                 </div>
-                <h3 className="text-sm font-black text-hoopoe-black mb-1">تحليل الذكاء الاصطناعي قيد الانتظار</h3>
-                <p className="text-xs text-hoopoe-black/40 font-semibold">هذه السيرة الذاتية في قائمة الانتظار للتحليل الآلي</p>
+                <h3 className="text-sm font-black text-hoopoe-black mb-1">AI Analysis Pending</h3>
+                <p className="text-xs text-hoopoe-black/40 font-semibold">This CV is queued for automated analysis</p>
                 <div className="mt-4 flex justify-center gap-1">
                   {[0, 1, 2].map((i) => (
                     <div key={i} className="w-2 h-2 rounded-full bg-hoopoe-orange/40 animate-pulse" style={{ animationDelay: `${i * 0.3}s` }} />
@@ -452,7 +452,7 @@ export default function CandidateDetailPage({ params }: { params: Promise<{ id: 
             )}
           </div>
 
-          {/* ═══ Right column — Actions & Notes ═══ */}
+          {/* Right column — Actions & Notes */}
           <div className="space-y-4">
             {/* Quick Actions */}
             <Card className="card-entrance stagger-2">
@@ -460,7 +460,7 @@ export default function CandidateDetailPage({ params }: { params: Promise<{ id: 
                 <div className="section-icon bg-hoopoe-orange/8">
                   <TrendingUp size={14} className="text-hoopoe-orange" />
                 </div>
-                <h3 className="text-xs font-black text-hoopoe-black">الإجراءات</h3>
+                <h3 className="text-xs font-black text-hoopoe-black">Actions</h3>
               </div>
               <div className="space-y-2">
                 {nextStage && (
@@ -468,8 +468,8 @@ export default function CandidateDetailPage({ params }: { params: Promise<{ id: 
                     onClick={() => updateStage(candidate.id, nextStage.key)}
                     className="w-full justify-between"
                   >
-                    نقل إلى {nextStage.label}
-                    <ChevronLeft size={14} />
+                    Move to {nextStage.label}
+                    <ChevronRight size={14} />
                   </Button>
                 )}
                 <select
@@ -482,26 +482,26 @@ export default function CandidateDetailPage({ params }: { params: Promise<{ id: 
                   ))}
                 </select>
                 <Button variant="ghost" className="w-full" size="sm">
-                  <Download size={14} /> تحميل السيرة الذاتية
+                  <Download size={14} /> Download CV
                 </Button>
               </div>
             </Card>
 
-            {/* Score Breakdown (sidebar) */}
+            {/* Score Breakdown */}
             {report && (
               <Card className="card-entrance stagger-3">
                 <div className="flex items-center gap-2.5 mb-4">
                   <div className="section-icon bg-hoopoe-brown/8">
                     <BarChart3 size={14} className="text-hoopoe-brown" />
                   </div>
-                  <h3 className="text-xs font-black text-hoopoe-black">ملخص التقييم</h3>
+                  <h3 className="text-xs font-black text-hoopoe-black">Score Breakdown</h3>
                 </div>
                 <div className="space-y-3">
                   {[
-                    { label: 'التقييم العام', value: report.overallScore, color: getScoreColor(report.overallScore) },
-                    { label: 'متوسط المهارات', value: avgSkillScore, color: getScoreColor(avgSkillScore) },
-                    { label: 'التوافق التقني', value: technicalFit, color: getScoreColor(technicalFit) },
-                    { label: 'التوافق الثقافي', value: culturalFit, color: getScoreColor(culturalFit) },
+                    { label: 'Overall Score', value: report.overallScore, color: getScoreColor(report.overallScore) },
+                    { label: 'Avg. Skills', value: avgSkillScore, color: getScoreColor(avgSkillScore) },
+                    { label: 'Technical Fit', value: technicalFit, color: getScoreColor(technicalFit) },
+                    { label: 'Cultural Fit', value: culturalFit, color: getScoreColor(culturalFit) },
                   ].map((item) => (
                     <div key={item.label}>
                       <div className="flex items-center justify-between mb-1">
@@ -524,13 +524,13 @@ export default function CandidateDetailPage({ params }: { params: Promise<{ id: 
                   <MessageSquare size={14} className="text-hoopoe-mid-orange" />
                 </div>
                 <div>
-                  <h3 className="text-xs font-black text-hoopoe-black">الملاحظات</h3>
-                  <p className="text-[10px] text-hoopoe-black/30 font-semibold">{candidate.notes.length} ملاحظة</p>
+                  <h3 className="text-xs font-black text-hoopoe-black">Notes</h3>
+                  <p className="text-[10px] text-hoopoe-black/30 font-semibold">{candidate.notes.length} {candidate.notes.length === 1 ? 'note' : 'notes'}</p>
                 </div>
               </div>
               <div className="space-y-2 mb-3 max-h-[300px] overflow-y-auto">
                 {candidate.notes.length === 0 && (
-                  <p className="text-[10px] text-hoopoe-black/30 font-semibold py-6 text-center">لا توجد ملاحظات بعد</p>
+                  <p className="text-[10px] text-hoopoe-black/30 font-semibold py-6 text-center">No notes yet</p>
                 )}
                 {candidate.notes.map((note) => (
                   <div key={note.id} className="p-2.5 rounded-xl bg-hoopoe-surface/50 border border-hoopoe-lt-gray/20">
@@ -545,7 +545,7 @@ export default function CandidateDetailPage({ params }: { params: Promise<{ id: 
               <div className="flex gap-2">
                 <input
                   type="text"
-                  placeholder="أضف ملاحظة..."
+                  placeholder="Add a note..."
                   value={noteText}
                   onChange={(e) => setNoteText(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && handleAddNote()}
@@ -565,12 +565,12 @@ export default function CandidateDetailPage({ params }: { params: Promise<{ id: 
                     <Clock size={14} className="text-hoopoe-navy" />
                   </div>
                   <div>
-                    <h3 className="text-xs font-black text-hoopoe-black">سجل المراحل</h3>
-                    <p className="text-[10px] text-hoopoe-black/30 font-semibold">{candidate.transitions.length} انتقال</p>
+                    <h3 className="text-xs font-black text-hoopoe-black">Stage History</h3>
+                    <p className="text-[10px] text-hoopoe-black/30 font-semibold">{candidate.transitions.length} {candidate.transitions.length === 1 ? 'transition' : 'transitions'}</p>
                   </div>
                 </div>
-                <div className="relative space-y-2 pr-4">
-                  <div className="absolute right-[5px] top-1 bottom-1 w-px bg-gradient-to-b from-hoopoe-orange/40 via-hoopoe-lt-gray/50 to-transparent" />
+                <div className="relative space-y-2 pl-4">
+                  <div className="absolute left-[5px] top-1 bottom-1 w-px bg-gradient-to-b from-hoopoe-orange/40 via-hoopoe-lt-gray/50 to-transparent" />
                   {[...candidate.transitions].reverse().map((t, i) => (
                     <div key={i} className="flex items-center gap-2.5 text-[10px] relative">
                       <div className="w-2.5 h-2.5 rounded-full bg-hoopoe-orange/80 border-2 border-white flex-shrink-0 z-10" />
@@ -578,7 +578,7 @@ export default function CandidateDetailPage({ params }: { params: Promise<{ id: 
                         <span className="font-black text-hoopoe-black/70">
                           {PIPELINE_STAGES.find((s) => s.key === t.to)?.label}
                         </span>
-                        <span className="text-hoopoe-black/40 font-semibold"> بواسطة {t.by}</span>
+                        <span className="text-hoopoe-black/40 font-semibold"> by {t.by}</span>
                       </div>
                       <span className="text-hoopoe-black/25 font-bold text-[9px]">{formatDate(t.date)}</span>
                     </div>

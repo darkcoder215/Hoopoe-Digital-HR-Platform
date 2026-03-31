@@ -10,7 +10,7 @@ import HiringMetrics from '@/components/dashboard/HiringMetrics';
 export default function DashboardPage() {
   return (
     <>
-      <Topbar title="لوحة التحكم" subtitle="نظرة عامة على التوظيف والتحليلات" />
+      <Topbar title="Dashboard" subtitle="Hiring overview & analytics" />
       <div className="p-8 space-y-8 max-w-[1440px]">
         {/* Stats Section */}
         <section>
